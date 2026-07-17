@@ -1,0 +1,9 @@
+# Copy to terraform.tfvars and fill in values
+
+aws_region = "us-east-1"
+environment = "prod"
+
+# Get from Secrets Manager or set directly (will be stored in Secrets Manager)
+anthropic_api_key     = "replace-with-anthropic-api-key"
+github_token          = "replace-with-github-token"
+github_webhook_secret = "replace-with-webhook-secret"  # Optional but recommended
