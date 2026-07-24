@@ -3,6 +3,22 @@
 SecReviewAgent AI is an Infrastructure-as-Code security review agent for Terraform and Kubernetes.
 It parses IaC, builds architecture context, and produces reviewer-friendly security findings.
 
+It is also the flagship measurable workflow for
+[Secure Context Cache](https://github.com/krishnamuppidi/secure-context-cache), an open-source
+secure token-optimization framework. The integration pattern replaces oversized repository prompts
+with a task-scoped capsule containing only the IAM, network, policy, ownership, environment, and
+dependency facts approved for that review.
+
+## Why Pair It with Secure Context Cache?
+
+- Reduce repeated input tokens for Terraform and Kubernetes reviews.
+- Preserve must-find security context and reject savings that weaken review quality.
+- Keep unrelated topology and restricted context outside the model prompt.
+- Compare changed-files-only, full-context, and governed-capsule review paths using provider usage,
+  recall, precision, latency, cost, and reviewer acceptance.
+
+**Product website:** https://krishnamuppidi.github.io/secure-context-cache/
+
 ## Contents
 
 - `src/secreviewagent/` - Core parsers, review agent, security knowledge, CLI, and webhook code.
