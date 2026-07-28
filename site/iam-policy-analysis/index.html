@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070b18" />
+  <title>AI-Assisted IAM Policy Analysis with Repository Context</title>
+  <meta name="description" content="Analyze IAM actions, resources, trust paths, cross-account access, and infrastructure dependencies with SecReviewAgent context." />
+  <meta name="keywords" content="IAM policy analysis, AI IAM security review, Terraform IAM least privilege, cross account IAM risk" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://krishnamuppidi.github.io/secreviewagent-ai/iam-policy-analysis/" />
+  <link rel="alternate" type="text/markdown" href="index.md" />
+  <meta property="og:title" content="AI-Assisted IAM Policy Analysis with Repository Context" />
+  <meta property="og:description" content="Analyze IAM actions, resources, trust paths, cross-account access, and infrastructure dependencies with SecReviewAgent context." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://krishnamuppidi.github.io/secreviewagent-ai/iam-policy-analysis/" />
+  <meta property="og:site_name" content="SecReviewAgent" />
+  <meta property="og:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <meta property="og:image:alt" content="SecReviewAgent context-aware Infrastructure-as-Code security review" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI-Assisted IAM Policy Analysis with Repository Context" />
+  <meta name="twitter:description" content="Analyze IAM actions, resources, trust paths, cross-account access, and infrastructure dependencies with SecReviewAgent context." />
+  <meta name="twitter:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"AI-Assisted IAM Policy Analysis with Repository Context","description":"Analyze IAM actions, resources, trust paths, cross-account access, and infrastructure dependencies with SecReviewAgent context.","url":"https://krishnamuppidi.github.io/secreviewagent-ai/iam-policy-analysis/","dateModified":"2026-07-28","author":{"@type":"Person","name":"Naga Krishna Reddy Muppidi","url":"https://scholar.google.com/citations?user=IKcQzPkAAAAJ&hl=en"},"publisher":{"@type":"Person","name":"Naga Krishna Reddy Muppidi"},"isPartOf":{"@type":"WebSite","name":"SecReviewAgent","url":"https://krishnamuppidi.github.io/secreviewagent-ai/"}}</script>
+  <script defer src="../analytics.js"></script>
+  <script defer src="../app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="../" aria-label="SecReviewAgent home"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <div class="nav-links" id="nav-links"><a href="../#how-it-works">How it works</a><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Docs</a></div>
+        <a class="button button-small nav-cta" href="https://github.com/krishnamuppidi/secreviewagent-ai">View GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  <main id="main">
+    <header class="page-hero"><div class="page-grid"></div><div class="container narrow reveal"><span class="eyebrow">IAM analysis</span><h1>Least privilege depends on both the statement and the architecture around it.</h1><p>SecReviewAgent preserves IAM actions and resources, then places them beside trust relationships, workloads, and data paths.</p><div class="breadcrumb"><a href="../">SecReviewAgent</a><span>/</span><span>IAM analysis</span></div></div></header>
+    <article class="article container narrow reveal">
+        <section class="content-section"><h2>Why local IAM checks are not enough</h2>
+        <p>Wildcards, administrative actions, and public principals are important deterministic signals. But a policy can be risky without using <code>*</code>. The security meaning of <code>s3:GetObject</code>, <code>kms:Decrypt</code>, <code>iam:PassRole</code>, or <code>sts:AssumeRole</code> depends on the target resource, trusted principal, condition keys, and the identities that can reach the role.</p></section>
+        <section class="content-section"><h2>A practical review sequence</h2>
+        <ol class="number-list"><li><b>Normalize</b> allowed and denied actions, resources, principals, and conditions.</li><li><b>Resolve</b> Terraform references and role attachments.</li><li><b>Trace</b> assume-role, pass-role, workload-identity, and data-access paths.</li><li><b>Classify</b> the affected environment and data sensitivity.</li><li><b>Recommend</b> a narrower principal, action, resource, condition, or session boundary.</li></ol></section>
+        <section class="content-section"><h2>Example reviewer language</h2>
+        <div class="notice"><b>Context-dependent high severity</b><p>The new deployment role can pass <code>prod-reporting-role</code> to Lambda. That target role already grants decryption and read access to the production reporting bucket. Restrict <code>iam:PassRole</code> to the intended runtime role and enforce the expected service through <code>iam:PassedToService</code>.</p></div>
+        <p>The important detail is the complete privilege path. A reviewer can confirm or reject the path because the finding names the roles, downstream permission, and proposed condition.</p></section>
+        <section class="content-section"><h2>Human and policy gates remain mandatory</h2>
+        <p>Use IAM Access Analyzer, organization policies, policy-as-code, and cloud audit data as authoritative inputs. Treat model reasoning as an explainable review layer. Never let the model directly attach policies or approve privileged infrastructure.</p></section>
+        </article>
+    <section class="related"><div class="container narrow"><span class="eyebrow">Continue exploring</span><h2>Put context-aware review into practice.</h2><div class="related-links"><a href="../examples/">Worked examples <span>→</span></a><a href="../docs/">Documentation <span>→</span></a><a href="../research/">Research and evidence <span>→</span></a></div></div></section>
+  </main>
+  
+    <footer class="footer"><div class="container footer-grid"><div><a class="brand" href="../"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a><p>Context-aware security review for Infrastructure-as-Code.</p></div><div><b>Explore</b><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Documentation</a></div><div><b>Guides</b><a href="../terraform-security-review/">Terraform review</a><a href="../kubernetes-security-review/">Kubernetes review</a><a href="../iac-security-review-checklist/">IaC checklist</a><a href="../about/">About</a></div><div><b>Project</b><a href="https://github.com/krishnamuppidi/secreviewagent-ai">Source code</a><a href="../assets/secreviewagent-icufn-2026-paper.pdf">Research paper</a><button id="analytics-preferences" class="footer-button" type="button">Analytics preferences</button></div></div><div class="container footer-bottom"><span>© <span id="year">2026</span> Naga Krishna Reddy Muppidi. MIT-licensed reference implementation.</span><span>Independent research · Human review required</span></div></footer>
+    <div id="analytics-consent" class="consent" role="dialog" aria-labelledby="analytics-consent-title" hidden><div><b id="analytics-consent-title">Privacy-respecting analytics</b><p>Allow anonymous GA4 usage analytics to improve the site. Advertising, Google Signals, personalization, names, emails, form contents, query strings, and full outbound URLs are not sent.</p></div><div class="consent-actions"><button class="button button-ghost" type="button" data-analytics-choice="denied">Decline</button><button class="button button-primary" type="button" data-analytics-choice="granted">Allow analytics</button></div></div>
+</body>
+</html>

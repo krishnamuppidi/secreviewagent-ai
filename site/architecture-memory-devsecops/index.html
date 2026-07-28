@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070b18" />
+  <title>Persistent Architecture Memory for DevSecOps and AI Code Review</title>
+  <meta name="description" content="Understand how persistent repository architecture memory supports faster, more contextual DevSecOps security review across pull requests." />
+  <meta name="keywords" content="persistent architecture memory, DevSecOps AI memory, repository context code review, AI agent memory security" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://krishnamuppidi.github.io/secreviewagent-ai/architecture-memory-devsecops/" />
+  <link rel="alternate" type="text/markdown" href="index.md" />
+  <meta property="og:title" content="Persistent Architecture Memory for DevSecOps and AI Code Review" />
+  <meta property="og:description" content="Understand how persistent repository architecture memory supports faster, more contextual DevSecOps security review across pull requests." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://krishnamuppidi.github.io/secreviewagent-ai/architecture-memory-devsecops/" />
+  <meta property="og:site_name" content="SecReviewAgent" />
+  <meta property="og:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <meta property="og:image:alt" content="SecReviewAgent context-aware Infrastructure-as-Code security review" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Persistent Architecture Memory for DevSecOps and AI Code Review" />
+  <meta name="twitter:description" content="Understand how persistent repository architecture memory supports faster, more contextual DevSecOps security review across pull requests." />
+  <meta name="twitter:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Persistent Architecture Memory for DevSecOps and AI Code Review","description":"Understand how persistent repository architecture memory supports faster, more contextual DevSecOps security review across pull requests.","url":"https://krishnamuppidi.github.io/secreviewagent-ai/architecture-memory-devsecops/","dateModified":"2026-07-28","author":{"@type":"Person","name":"Naga Krishna Reddy Muppidi","url":"https://scholar.google.com/citations?user=IKcQzPkAAAAJ&hl=en"},"publisher":{"@type":"Person","name":"Naga Krishna Reddy Muppidi"},"isPartOf":{"@type":"WebSite","name":"SecReviewAgent","url":"https://krishnamuppidi.github.io/secreviewagent-ai/"}}</script>
+  <script defer src="../analytics.js"></script>
+  <script defer src="../app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="../" aria-label="SecReviewAgent home"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <div class="nav-links" id="nav-links"><a href="../#how-it-works">How it works</a><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Docs</a></div>
+        <a class="button button-small nav-cta" href="https://github.com/krishnamuppidi/secreviewagent-ai">View GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  <main id="main">
+    <header class="page-hero"><div class="page-grid"></div><div class="container narrow reveal"><span class="eyebrow">Architecture memory</span><h1>Stop rebuilding the same repository understanding on every review.</h1><p>Persistent memory can preserve the infrastructure relationships a reviewer needs while keeping raw secrets and unrelated source outside the prompt.</p><div class="breadcrumb"><a href="../">SecReviewAgent</a><span>/</span><span>Architecture memory</span></div></div></header>
+    <article class="article container narrow reveal">
+        <section class="content-section"><h2>What architecture memory should contain</h2>
+        <p>A useful representation includes resource inventory, dependency edges, identity relationships, data stores, network boundaries, environment labels, ownership, and selected security notes. It should be compact enough for repeated use and structured enough to update when resources are added, changed, or deleted.</p></section>
+        <section class="content-section"><h2>Cold path and warm path</h2>
+        <p>The cold path prioritizes IaC files, enforces file and size limits, parses security-relevant structures, summarizes the repository, and stores a versioned context object. The warm path loads that object, applies the pull-request delta, refreshes architecture sections only when needed, and writes the updated version after review.</p>
+        <p>This design can reduce repeated parsing and summarization, but teams should measure provider usage and latency rather than assuming savings. Warm-path speed is meaningful only if review quality remains acceptable.</p></section>
+        <section class="content-section"><h2>Memory creates responsibilities</h2>
+        <ul class="check-list"><li>Encrypt stored context and restrict it to the repository and workload identity.</li><li>Record source hashes and schema version so the reviewer knows what was used.</li><li>Expire or rebuild context after out-of-band infrastructure changes.</li><li>Redact credentials, tokens, passwords, and secret values before persistence.</li><li>Provide a deletion path when a repository or customer leaves the system.</li></ul></section>
+        <section class="content-section"><h2>Connection to Secure Context Cache</h2>
+        <p>SecReviewAgent is the flagship IaC workflow for the broader <a href="https://krishnamuppidi.github.io/secure-context-cache/">Secure Context Cache</a> architecture. Secure Context Cache adds a policy-scoped release boundary: the reviewer receives only the approved IAM, network, ownership, environment, and dependency facts needed for the task.</p></section>
+        </article>
+    <section class="related"><div class="container narrow"><span class="eyebrow">Continue exploring</span><h2>Put context-aware review into practice.</h2><div class="related-links"><a href="../examples/">Worked examples <span>→</span></a><a href="../docs/">Documentation <span>→</span></a><a href="../research/">Research and evidence <span>→</span></a></div></div></section>
+  </main>
+  
+    <footer class="footer"><div class="container footer-grid"><div><a class="brand" href="../"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a><p>Context-aware security review for Infrastructure-as-Code.</p></div><div><b>Explore</b><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Documentation</a></div><div><b>Guides</b><a href="../terraform-security-review/">Terraform review</a><a href="../kubernetes-security-review/">Kubernetes review</a><a href="../iac-security-review-checklist/">IaC checklist</a><a href="../about/">About</a></div><div><b>Project</b><a href="https://github.com/krishnamuppidi/secreviewagent-ai">Source code</a><a href="../assets/secreviewagent-icufn-2026-paper.pdf">Research paper</a><button id="analytics-preferences" class="footer-button" type="button">Analytics preferences</button></div></div><div class="container footer-bottom"><span>© <span id="year">2026</span> Naga Krishna Reddy Muppidi. MIT-licensed reference implementation.</span><span>Independent research · Human review required</span></div></footer>
+    <div id="analytics-consent" class="consent" role="dialog" aria-labelledby="analytics-consent-title" hidden><div><b id="analytics-consent-title">Privacy-respecting analytics</b><p>Allow anonymous GA4 usage analytics to improve the site. Advertising, Google Signals, personalization, names, emails, form contents, query strings, and full outbound URLs are not sent.</p></div><div class="consent-actions"><button class="button button-ghost" type="button" data-analytics-choice="denied">Decline</button><button class="button button-primary" type="button" data-analytics-choice="granted">Allow analytics</button></div></div>
+</body>
+</html>

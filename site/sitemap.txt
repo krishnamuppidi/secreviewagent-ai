@@ -1,0 +1,16 @@
+https://krishnamuppidi.github.io/secreviewagent-ai/
+https://krishnamuppidi.github.io/secreviewagent-ai/use-cases/
+https://krishnamuppidi.github.io/secreviewagent-ai/examples/
+https://krishnamuppidi.github.io/secreviewagent-ai/docs/
+https://krishnamuppidi.github.io/secreviewagent-ai/terraform-security-review/
+https://krishnamuppidi.github.io/secreviewagent-ai/kubernetes-security-review/
+https://krishnamuppidi.github.io/secreviewagent-ai/iam-policy-analysis/
+https://krishnamuppidi.github.io/secreviewagent-ai/context-aware-iac-security/
+https://krishnamuppidi.github.io/secreviewagent-ai/architecture-memory-devsecops/
+https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-vs-static-analysis/
+https://krishnamuppidi.github.io/secreviewagent-ai/checkov-vs-secreviewagent/
+https://krishnamuppidi.github.io/secreviewagent-ai/tfsec-vs-secreviewagent/
+https://krishnamuppidi.github.io/secreviewagent-ai/secure-ai-code-review/
+https://krishnamuppidi.github.io/secreviewagent-ai/iac-security-review-checklist/
+https://krishnamuppidi.github.io/secreviewagent-ai/research/
+https://krishnamuppidi.github.io/secreviewagent-ai/about/

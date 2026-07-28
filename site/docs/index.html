@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070b18" />
+  <title>SecReviewAgent Documentation: Install, Run, Integrate, and Deploy</title>
+  <meta name="description" content="Install SecReviewAgent, run Terraform and Kubernetes reviews, understand structured findings, and deploy the AWS webhook architecture." />
+  <meta name="keywords" content="SecReviewAgent documentation, IaC security CLI, Terraform AI review setup, Kubernetes security review tool" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://krishnamuppidi.github.io/secreviewagent-ai/docs/" />
+  <link rel="alternate" type="text/markdown" href="index.md" />
+  <meta property="og:title" content="SecReviewAgent Documentation: Install, Run, Integrate, and Deploy" />
+  <meta property="og:description" content="Install SecReviewAgent, run Terraform and Kubernetes reviews, understand structured findings, and deploy the AWS webhook architecture." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://krishnamuppidi.github.io/secreviewagent-ai/docs/" />
+  <meta property="og:site_name" content="SecReviewAgent" />
+  <meta property="og:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <meta property="og:image:alt" content="SecReviewAgent context-aware Infrastructure-as-Code security review" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SecReviewAgent Documentation: Install, Run, Integrate, and Deploy" />
+  <meta name="twitter:description" content="Install SecReviewAgent, run Terraform and Kubernetes reviews, understand structured findings, and deploy the AWS webhook architecture." />
+  <meta name="twitter:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"SecReviewAgent Documentation: Install, Run, Integrate, and Deploy","description":"Install SecReviewAgent, run Terraform and Kubernetes reviews, understand structured findings, and deploy the AWS webhook architecture.","url":"https://krishnamuppidi.github.io/secreviewagent-ai/docs/","dateModified":"2026-07-28","author":{"@type":"Person","name":"Naga Krishna Reddy Muppidi","url":"https://scholar.google.com/citations?user=IKcQzPkAAAAJ&hl=en"},"publisher":{"@type":"Person","name":"Naga Krishna Reddy Muppidi"},"isPartOf":{"@type":"WebSite","name":"SecReviewAgent","url":"https://krishnamuppidi.github.io/secreviewagent-ai/"}}</script>
+  <script defer src="../analytics.js"></script>
+  <script defer src="../app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="../" aria-label="SecReviewAgent home"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <div class="nav-links" id="nav-links"><a href="../#how-it-works">How it works</a><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Docs</a></div>
+        <a class="button button-small nav-cta" href="https://github.com/krishnamuppidi/secreviewagent-ai">View GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  <main id="main">
+    <header class="page-hero"><div class="page-grid"></div><div class="container narrow reveal"><span class="eyebrow">Documentation</span><h1>From local IaC analysis to a review webhook.</h1><p>Use the public Python package, CLI, webhook service, and Terraform deployment template as an inspectable reference implementation.</p><div class="breadcrumb"><a href="../">SecReviewAgent</a><span>/</span><span>Documentation</span></div></div></header>
+    <article class="article container narrow reveal">
+        <section class="content-section"><h2>Local installation</h2>
+        <pre><code>git clone https://github.com/krishnamuppidi/secreviewagent-ai.git
+cd secreviewagent-ai
+python -m venv .venv
+. .venv/bin/activate
+pip install -e ".[dev]"
+pytest -q</code></pre>
+        <p>The package requires Python 3.10 or newer. Configure <code>ANTHROPIC_API_KEY</code> outside source control before invoking model-backed analysis.</p></section>
+        <section class="content-section"><h2>Run a Terraform review</h2>
+        <pre><code>secreview analyze examples/terraform --type terraform</code></pre>
+        <p>The parser walks <code>.tf</code> and <code>.tf.json</code> files, extracts resources and references, expands IAM policy statements, identifies public security-group rules, and sends structured configuration—not an opaque repository dump—to the reviewer model.</p></section>
+        <section class="content-section"><h2>Run a Kubernetes review</h2>
+        <pre><code>secreview analyze path/to/manifests --type kubernetes</code></pre>
+        <p>Kubernetes analysis accepts YAML manifests and models workloads, services, ingress, service accounts, IRSA role annotations, RBAC bindings, and NetworkPolicy relationships.</p></section>
+        <section class="content-section"><h2>Output contract</h2>
+        <p>The stable review shape contains <code>architecture_summary</code>, <code>service_explanations</code>, <code>service_interactions</code>, and <code>security_findings</code>. Each finding includes severity, title, description, affected resources, a recommendation, and related security concepts. Consumers should validate the JSON, preserve source references, and keep a human approval step.</p></section>
+        <section class="content-section"><h2>AWS webhook deployment</h2>
+        <p>The infrastructure template deploys the review handler behind API Gateway and Lambda, with S3-backed repository memory. Review <code>infra/terraform.tfvars.example</code>, keep real values and state out of version control, build the Lambda layer, run <code>terraform plan</code>, and require an operator to approve the production apply.</p>
+        <div class="notice"><b>Security boundary</b><p>Never place cloud credentials, repository tokens, model keys, or raw secrets in prompts. Redact sensitive literals, scope repository access, encrypt stored context, and retain auditable review records.</p></div></section>
+        </article>
+    <section class="related"><div class="container narrow"><span class="eyebrow">Continue exploring</span><h2>Put context-aware review into practice.</h2><div class="related-links"><a href="../examples/">Worked examples <span>→</span></a><a href="../docs/">Documentation <span>→</span></a><a href="../research/">Research and evidence <span>→</span></a></div></div></section>
+  </main>
+  
+    <footer class="footer"><div class="container footer-grid"><div><a class="brand" href="../"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a><p>Context-aware security review for Infrastructure-as-Code.</p></div><div><b>Explore</b><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Documentation</a></div><div><b>Guides</b><a href="../terraform-security-review/">Terraform review</a><a href="../kubernetes-security-review/">Kubernetes review</a><a href="../iac-security-review-checklist/">IaC checklist</a><a href="../about/">About</a></div><div><b>Project</b><a href="https://github.com/krishnamuppidi/secreviewagent-ai">Source code</a><a href="../assets/secreviewagent-icufn-2026-paper.pdf">Research paper</a><button id="analytics-preferences" class="footer-button" type="button">Analytics preferences</button></div></div><div class="container footer-bottom"><span>© <span id="year">2026</span> Naga Krishna Reddy Muppidi. MIT-licensed reference implementation.</span><span>Independent research · Human review required</span></div></footer>
+    <div id="analytics-consent" class="consent" role="dialog" aria-labelledby="analytics-consent-title" hidden><div><b id="analytics-consent-title">Privacy-respecting analytics</b><p>Allow anonymous GA4 usage analytics to improve the site. Advertising, Google Signals, personalization, names, emails, form contents, query strings, and full outbound URLs are not sent.</p></div><div class="consent-actions"><button class="button button-ghost" type="button" data-analytics-choice="denied">Decline</button><button class="button button-primary" type="button" data-analytics-choice="granted">Allow analytics</button></div></div>
+</body>
+</html>

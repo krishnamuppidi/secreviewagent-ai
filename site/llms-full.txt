@@ -1,0 +1,580 @@
+# SecReviewAgent
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+SecReviewAgent is an open-source, context-aware security review system for Terraform and Kubernetes. It preserves repository architecture memory across pull requests and returns structured, reviewer-ready findings.
+
+## Capabilities
+
+- Terraform resource, reference, IAM policy, and security-group parsing.
+- Kubernetes workload, RBAC, service-account, IRSA, ingress, and NetworkPolicy parsing.
+- Pull-request diff analysis with architecture context.
+- Structured findings with affected resources and actionable recommendations.
+- AWS serverless webhook reference deployment.
+- Human approval remains required.
+
+## Research boundary
+
+The SecReviewAgent paper was accepted and presented at ICUFN 2026. Its reported evaluation results are research results under the manuscript's dataset and method, not universal production guarantees.
+
+## Guides
+
+- [SecReviewAgent Use Cases for IaC and Cloud Security Review](https://krishnamuppidi.github.io/secreviewagent-ai/use-cases/index.md)
+- [SecReviewAgent Examples: Terraform, IAM, Security Groups, and Kubernetes](https://krishnamuppidi.github.io/secreviewagent-ai/examples/index.md)
+- [SecReviewAgent Documentation: Install, Run, Integrate, and Deploy](https://krishnamuppidi.github.io/secreviewagent-ai/docs/index.md)
+- [Context-Aware Terraform Security Review with SecReviewAgent](https://krishnamuppidi.github.io/secreviewagent-ai/terraform-security-review/index.md)
+- [Kubernetes Manifest Security Review with Architecture Context](https://krishnamuppidi.github.io/secreviewagent-ai/kubernetes-security-review/index.md)
+- [AI-Assisted IAM Policy Analysis with Repository Context](https://krishnamuppidi.github.io/secreviewagent-ai/iam-policy-analysis/index.md)
+- [What Is Context-Aware Infrastructure-as-Code Security Review?](https://krishnamuppidi.github.io/secreviewagent-ai/context-aware-iac-security/index.md)
+- [Persistent Architecture Memory for DevSecOps and AI Code Review](https://krishnamuppidi.github.io/secreviewagent-ai/architecture-memory-devsecops/index.md)
+- [AI Code Review vs Static Analysis for Infrastructure-as-Code](https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-vs-static-analysis/index.md)
+- [Checkov vs SecReviewAgent: Rules and Context for IaC Security](https://krishnamuppidi.github.io/secreviewagent-ai/checkov-vs-secreviewagent/index.md)
+- [tfsec vs SecReviewAgent for Terraform Security Review](https://krishnamuppidi.github.io/secreviewagent-ai/tfsec-vs-secreviewagent/index.md)
+- [Secure AI Code Review: Least-Privilege Context for IaC](https://krishnamuppidi.github.io/secreviewagent-ai/secure-ai-code-review/index.md)
+- [Infrastructure-as-Code Security Review Checklist](https://krishnamuppidi.github.io/secreviewagent-ai/iac-security-review-checklist/index.md)
+- [SecReviewAgent Research, Evaluation Method, and Claim Boundaries](https://krishnamuppidi.github.io/secreviewagent-ai/research/index.md)
+- [About SecReviewAgent and Naga Krishna Reddy Muppidi](https://krishnamuppidi.github.io/secreviewagent-ai/about/index.md)
+
+
+---
+
+# SecReviewAgent Use Cases for IaC and Cloud Security Review
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/use-cases/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+SecReviewAgent complements deterministic scanners by explaining how a change interacts with repository architecture, identity, networking, and data paths.
+
+## Supported in the public implementation
+
+          Terraform
+### Cross-resource Terraform review
+Parse resources, references, IAM statements, security groups, and public network rules. The review output names affected resource addresses and the configuration values behind each concern.
+[See the Terraform workflow →](../terraform-security-review/)
+
+          Kubernetes
+### Workload, RBAC, and network review
+Parse workloads, service accounts, IRSA annotations, role bindings, ingress and egress policy, then explain how those pieces combine.
+[See the Kubernetes workflow →](../kubernetes-security-review/)
+
+          Pull requests
+### Context-aware PR review
+Accept a Git diff, isolate added, removed, and modified infrastructure, and return structured findings suitable for a human reviewer.
+[Understand context-aware review →](../context-aware-iac-security/)
+
+          AWS
+### Serverless webhook deployment
+Deploy an API Gateway and Lambda review path with repository memory stored in S3. Secrets remain in managed configuration rather than source.
+[Open deployment documentation →](../docs/)
+
+## High-value review scenarios
+
+        A narrow permission can become dangerous through an existing trust relationship. A Kubernetes workload can bypass an expected boundary through hostNetwork, a privileged security context, or a service account with broader cloud access. A security group change can expose a data path that is not visible in the changed file. These are the scenarios where architecture memory adds the most value.
+
+        - IAM permissions combined with role trust and downstream data stores.
+- Public ingress combined with sensitive workloads or administrative ports.
+- Kubernetes RBAC combined with workload identity and cluster-wide bindings.
+- Pull-request changes that alter an existing cross-resource privilege path.
+- Repeated reviews where repository context can be loaded instead of rebuilt.
+
+## Roadmap integrations, clearly labeled
+
+        CloudFormation, Pulumi, Helm, Kustomize, GitHub Actions, GitLab CI, Jenkins, OPA/Rego, Dockerfiles, and SBOM-aware supply-chain review are useful expansion targets. They are not presented as current parser support. The architecture can accommodate them through additional parsers and evidence adapters, but each integration needs tests, fixtures, and an evaluation before it becomes a supported claim.
+
+
+---
+
+# SecReviewAgent Examples: Terraform, IAM, Security Groups, and Kubernetes
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/examples/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+Each example traces the changed configuration, the additional context, the resulting risk statement, and a reviewer-ready remediation.
+
+## Example 1: read-only IAM permission with a risky trust path
+
+        Changed line"s3:GetObject"
++Stored contextcross-account trust → prod-risk-data/*
+=Findingexternal read path to sensitive data
+
+        A diff-only review may treat read access as low risk. SecReviewAgent can combine the action, target resource, trust policy, and repository data-path description. The finding should state exactly which role can be assumed, which prefix is reachable, and why that prefix matters. A useful recommendation may narrow the principal, require an external ID, constrain the prefix, and add an explicit deny for unapproved environments.
+
+## Example 2: public SSH rule
+
+```
+ingress {
+  protocol    = "tcp"
+  from_port   = 22
+  to_port     = 22
+  cidr_blocks = ["0.0.0.0/0"]
+}
+```
+
+        The Terraform parser marks this rule public and preserves the actual ports and CIDR. The review output can name the affected security group and recommend a private access path, a managed session service, or a constrained administrative CIDR. This is a deterministic issue, so a static scanner should remain the primary control; SecReviewAgent adds an explanation tied to the surrounding workload.
+
+## Example 3: Kubernetes cluster-wide privilege
+
+```
+kind: ClusterRoleBinding
+subjects:
+  - kind: ServiceAccount
+    name: deployer
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+```
+
+        The Kubernetes parser connects the service account to the binding. If IRSA annotations and workload references are also present, the reviewer can evaluate both Kubernetes and cloud privilege. The remediation may replace the cluster-wide role with a namespace-scoped Role, restrict verbs and resources, and separate deployment automation from runtime identity.
+
+## What a good output contains
+
+        SecReviewAgent returns an architecture summary, service interactions, resource-specific explanations, severity-ranked findings, affected resource addresses, concept references, and actionable recommendations. The output remains evidence for a human decision—not an autonomous approval or deployment command.
+
+        [Run the included Terraform fixture and inspect the JSON contract →](../docs/)
+
+
+---
+
+# SecReviewAgent Documentation: Install, Run, Integrate, and Deploy
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/docs/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+Use the public Python package, CLI, webhook service, and Terraform deployment template as an inspectable reference implementation.
+
+## Local installation
+
+```
+git clone https://github.com/krishnamuppidi/secreviewagent-ai.git
+cd secreviewagent-ai
+python -m venv .venv
+. .venv/bin/activate
+pip install -e ".[dev]"
+pytest -q
+```
+
+        The package requires Python 3.10 or newer. Configure ANTHROPIC_API_KEY outside source control before invoking model-backed analysis.
+
+## Run a Terraform review
+
+```
+secreview analyze examples/terraform --type terraform
+```
+
+        The parser walks .tf and .tf.json files, extracts resources and references, expands IAM policy statements, identifies public security-group rules, and sends structured configuration—not an opaque repository dump—to the reviewer model.
+
+## Run a Kubernetes review
+
+```
+secreview analyze path/to/manifests --type kubernetes
+```
+
+        Kubernetes analysis accepts YAML manifests and models workloads, services, ingress, service accounts, IRSA role annotations, RBAC bindings, and NetworkPolicy relationships.
+
+## Output contract
+
+        The stable review shape contains architecture_summary, service_explanations, service_interactions, and security_findings. Each finding includes severity, title, description, affected resources, a recommendation, and related security concepts. Consumers should validate the JSON, preserve source references, and keep a human approval step.
+
+## AWS webhook deployment
+
+        The infrastructure template deploys the review handler behind API Gateway and Lambda, with S3-backed repository memory. Review infra/terraform.tfvars.example, keep real values and state out of version control, build the Lambda layer, run terraform plan, and require an operator to approve the production apply.
+
+        Security boundaryNever place cloud credentials, repository tokens, model keys, or raw secrets in prompts. Redact sensitive literals, scope repository access, encrypt stored context, and retain auditable review records.
+
+
+---
+
+# Context-Aware Terraform Security Review with SecReviewAgent
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/terraform-security-review/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+SecReviewAgent parses actual HCL values and resource references so findings can explain IAM, networking, data, and compute relationships.
+
+## What the Terraform parser extracts
+
+        The public implementation reads .tf and .tf.json, captures resource type, name, address, attributes, and references, and classifies common AWS compute, storage, identity, and network resources. IAM policy statements are normalized into allowed actions and resources. Security-group rules preserve direction, protocol, port range, CIDRs, source groups, and public-access state.
+
+        This structured context lets the model cite an actual resource address and configuration value. It also makes review output easier to test than a generic prompt that receives a folder of text.
+
+## Questions a context-aware Terraform review should answer
+
+        - Does a new principal inherit access through an existing assume-role chain?
+- Does a narrow action reach a sensitive bucket, table, secret, or encryption key?
+- Does a new network rule expose a workload with privileged downstream access?
+- Does a module reference change a production data path outside the edited file?
+- Is the finding deterministic, contextual, or uncertain—and is that distinction visible?
+
+## Use alongside Checkov, tfsec, and policy-as-code
+
+        SecReviewAgent is not positioned as a replacement for deterministic scanning. Checkov, tfsec, Terrascan, KICS, Sentinel, and OPA remain valuable for known controls. The context-aware layer should consume their evidence, reason about cross-resource implications, and produce an explanation a reviewer can challenge.
+
+        [Compare deterministic and contextual review →](../checkov-vs-secreviewagent/)
+
+## Safe operating model
+
+        Limit repository scope, redact sensitive literals, store architecture memory in encrypted storage, version its schema, expire stale facts, and keep merge authority outside the model. Measure precision, recall, latency, and reviewer acceptance on your own labeled pull requests before changing enforcement.
+
+
+---
+
+# Kubernetes Manifest Security Review with Architecture Context
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/kubernetes-security-review/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+A Kubernetes finding becomes more useful when the reviewer can see the workload, service account, role binding, policy, and external data path together.
+
+## Supported Kubernetes evidence
+
+        SecReviewAgent parses multi-document YAML and models Deployments, StatefulSets, DaemonSets, Jobs, CronJobs, Pods, Services, Ingress objects, NetworkPolicies, ServiceAccounts, Roles, ClusterRoles, RoleBindings, and ClusterRoleBindings. It records namespace, labels, annotations, specifications, IRSA role ARNs, and binding relationships.
+
+## Context-dependent risks
+
+        A privileged container is often detectable from one manifest. The architectural question is what that container can reach. A service account bound to cluster-admin may also assume an AWS role. A public ingress may lead to a workload that can query an internal data service. A missing egress policy matters differently for an isolated batch job and an internet-facing identity service.
+
+        - Connect workload service accounts to namespaced and cluster-wide RBAC.
+- Connect IRSA annotations to cloud permissions and target resources.
+- Evaluate ingress and egress together with workload sensitivity.
+- Flag privilege, host access, and policy bypass with the relevant namespace.
+- Distinguish absent policy from explicitly broad policy.
+
+## Review output for humans
+
+        A useful Kubernetes review names the manifest and resource, quotes the risky value, describes the path it creates, and proposes the smallest safe change. It does not merely say “RBAC is too broad.” It should state which service account receives which role and whether the scope can be reduced.
+
+## What is next
+
+        Helm and Kustomize are roadmap integrations. Until rendered-manifest and overlay tests are added, teams can render those configurations in CI and pass the resulting YAML to the existing Kubernetes parser. That workflow should be documented as an integration pattern, not native parser support.
+
+
+---
+
+# AI-Assisted IAM Policy Analysis with Repository Context
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/iam-policy-analysis/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+SecReviewAgent preserves IAM actions and resources, then places them beside trust relationships, workloads, and data paths.
+
+## Why local IAM checks are not enough
+
+        Wildcards, administrative actions, and public principals are important deterministic signals. But a policy can be risky without using *. The security meaning of s3:GetObject, kms:Decrypt, iam:PassRole, or sts:AssumeRole depends on the target resource, trusted principal, condition keys, and the identities that can reach the role.
+
+## A practical review sequence
+
+        - Normalize allowed and denied actions, resources, principals, and conditions.
+- Resolve Terraform references and role attachments.
+- Trace assume-role, pass-role, workload-identity, and data-access paths.
+- Classify the affected environment and data sensitivity.
+- Recommend a narrower principal, action, resource, condition, or session boundary.
+
+## Example reviewer language
+
+        Context-dependent high severityThe new deployment role can pass prod-reporting-role to Lambda. That target role already grants decryption and read access to the production reporting bucket. Restrict iam:PassRole to the intended runtime role and enforce the expected service through iam:PassedToService.
+
+        The important detail is the complete privilege path. A reviewer can confirm or reject the path because the finding names the roles, downstream permission, and proposed condition.
+
+## Human and policy gates remain mandatory
+
+        Use IAM Access Analyzer, organization policies, policy-as-code, and cloud audit data as authoritative inputs. Treat model reasoning as an explainable review layer. Never let the model directly attach policies or approve privileged infrastructure.
+
+
+---
+
+# What Is Context-Aware Infrastructure-as-Code Security Review?
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/context-aware-iac-security/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+Context-aware IaC review combines the current diff with a maintained model of architecture, identity, network paths, and prior repository facts.
+
+## Diff-only review has a structural blind spot
+
+        A pull request is a useful unit of change, but it is not a complete unit of security meaning. A new route can expose an old workload. A new role trust can activate an old permission. A service account change can connect Kubernetes privilege to cloud privilege. Reviewers reconstruct those relationships manually because the diff does not contain them.
+
+## Persistent architecture memory
+
+        On a cold review, SecReviewAgent parses infrastructure files and builds a repository model containing a summary, components, references, inferred data flows, and IAM relationships. On a warm review, it loads that model, evaluates the change, and updates the stored state when architecture-relevant facts change. This avoids treating every review as a new repository.
+
+        Architecture memory must be governed. It should have provenance, schema versions, freshness controls, encryption, repository boundaries, and deletion behavior. A stale or overbroad memory can create its own security problem.
+
+## Layered review is the intended design
+
+        1. Deterministic scannersKnown misconfigurations and policy failures
+2. Architecture contextRepository relationships, trust paths, and data flows
+3. Model reasoningSpecific explanation and remediation
+4. Human decisionValidate, suppress, remediate, or approve
+
+## How to measure whether context helps
+
+        Build a labeled pull-request set with both local and context-dependent issues. Compare deterministic scanners, a no-context model, and the context-aware system on the same set. Report precision, recall, F1, false positives, latency, cost, and reviewer acceptance. Separate cold and warm reviews so architecture reconstruction is not hidden inside one average.
+
+
+---
+
+# Persistent Architecture Memory for DevSecOps and AI Code Review
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/architecture-memory-devsecops/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+Persistent memory can preserve the infrastructure relationships a reviewer needs while keeping raw secrets and unrelated source outside the prompt.
+
+## What architecture memory should contain
+
+        A useful representation includes resource inventory, dependency edges, identity relationships, data stores, network boundaries, environment labels, ownership, and selected security notes. It should be compact enough for repeated use and structured enough to update when resources are added, changed, or deleted.
+
+## Cold path and warm path
+
+        The cold path prioritizes IaC files, enforces file and size limits, parses security-relevant structures, summarizes the repository, and stores a versioned context object. The warm path loads that object, applies the pull-request delta, refreshes architecture sections only when needed, and writes the updated version after review.
+
+        This design can reduce repeated parsing and summarization, but teams should measure provider usage and latency rather than assuming savings. Warm-path speed is meaningful only if review quality remains acceptable.
+
+## Memory creates responsibilities
+
+        - Encrypt stored context and restrict it to the repository and workload identity.
+- Record source hashes and schema version so the reviewer knows what was used.
+- Expire or rebuild context after out-of-band infrastructure changes.
+- Redact credentials, tokens, passwords, and secret values before persistence.
+- Provide a deletion path when a repository or customer leaves the system.
+
+## Connection to Secure Context Cache
+
+        SecReviewAgent is the flagship IaC workflow for the broader [Secure Context Cache](https://krishnamuppidi.github.io/secure-context-cache/) architecture. Secure Context Cache adds a policy-scoped release boundary: the reviewer receives only the approved IAM, network, ownership, environment, and dependency facts needed for the task.
+
+
+---
+
+# AI Code Review vs Static Analysis for Infrastructure-as-Code
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-vs-static-analysis/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+The strongest workflow keeps deterministic scanners as controls and adds context-aware reasoning where risk crosses resource and file boundaries.
+
+## What static analysis does well
+
+        Static IaC scanners are fast, repeatable, and easy to enforce. They excel at known patterns: public storage, missing encryption, unrestricted ingress, privileged containers, weak logging, and violations of organization policy. Their findings can map directly to a rule identifier and a source line.
+
+## What an AI review layer can add
+
+        A model can explain provider semantics, summarize the architecture, connect resources, and propose a remediation that accounts for intent. Persistent repository context can expose a privilege or data path that is not represented in a single rule. The cost is uncertainty: model output must be validated, calibrated, and prevented from taking autonomous action.
+
+### Static scanner
+- Deterministic rules
+- Low latency
+- Clear policy IDs
+- Limited architectural inference
+
+### SecReviewAgent layer
+- Cross-resource context
+- Repository-specific explanation
+- Structured remediation
+- Requires human validation
+
+## Recommended pipeline
+
+        Run formatting, validation, and deterministic scanners first. Feed their results plus a bounded architecture view into the contextual reviewer. Deduplicate overlapping findings, preserve the evidence source, and route critical or uncertain findings to an experienced reviewer. Do not hide scanner failures inside a model-generated summary.
+
+## Evaluation questions
+
+        Does the AI layer find context-dependent issues the scanners miss? Does it create more false positives? Does it reduce median human review time? Are recommendations accepted? How much repository content crosses the model boundary? These measures matter more than the raw number of comments.
+
+
+---
+
+# Checkov vs SecReviewAgent: Rules and Context for IaC Security
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/checkov-vs-secreviewagent/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+These tools are complementary: one provides deterministic checks, while the other adds bounded architecture context and reviewer-oriented explanation.
+
+## Different jobs
+
+        Checkov scans Terraform, Kubernetes, CloudFormation, and other configuration formats against a large library of policies. It is a strong first line for known misconfigurations and compliance rules. SecReviewAgent’s current public parsers focus on Terraform and Kubernetes and add cross-resource context, persistent architecture memory, and structured explanations.
+
+## Where Checkov should remain authoritative
+
+        Use Checkov for deterministic policy IDs, baseline enforcement, suppressions, and supported-framework coverage. A model should not replace a reliable rule with a paraphrased opinion. Preserve the check identifier, file, line, severity, and remediation link in the final review.
+
+## Where SecReviewAgent can add value
+
+        Use the contextual layer when a change must be interpreted against existing IAM relationships, data sensitivity, network boundaries, module behavior, or previous repository knowledge. It can explain why a policy violation matters in this architecture or surface a relationship for which no single Checkov rule exists.
+
+## Integration pattern
+
+        - Run Checkov and export machine-readable results.
+- Parse the changed Terraform or Kubernetes resources.
+- Load the approved repository architecture context.
+- Ask SecReviewAgent to reason about unresolved relationships and explain relevant scanner results.
+- Deduplicate, retain provenance, and require human approval.
+
+        No misleading replacement claimSecReviewAgent does not claim broader format coverage or deterministic rule depth than Checkov. Its contribution is persistent architectural context for review decisions.
+
+
+---
+
+# tfsec vs SecReviewAgent for Terraform Security Review
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/tfsec-vs-secreviewagent/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+tfsec and related Trivy configuration checks detect known Terraform risks; SecReviewAgent is designed for relationships that require stored architecture context.
+
+## Deterministic Terraform scanning
+
+        tfsec became a familiar choice because it maps Terraform configuration to concrete security checks with fast local and CI execution. Today many teams consume that capability through Trivy configuration scanning. This remains a strong control for known insecure values and resource patterns.
+
+## Context-aware review
+
+        SecReviewAgent parses Terraform resources and references, builds an architecture view, and asks how the pull request changes existing trust, network, or data paths. A new route, role, or attachment can be risky because of resources that were not edited. This is the gap persistent memory is intended to address.
+
+## Use both without creating noise
+
+        Start with deterministic results. Mark them as scanner evidence. Run contextual reasoning only on security-relevant deltas and the minimum approved architecture facts. Merge exact duplicates, but do not let a model suppress a scanner failure silently. Route uncertain relationship findings to a human with the relevant resource graph.
+
+## Selection guide
+
+        - Need fast known checks in every commit? Use deterministic scanning.
+- Need custom organization policy? Add policy-as-code.
+- Need a cross-file trust or data-path explanation? Add context-aware review.
+- Need merge enforcement? Base it on validated rules and explicit human decisions.
+- Need evidence of improvement? Evaluate all paths on the same labeled PR set.
+
+
+---
+
+# Secure AI Code Review: Least-Privilege Context for IaC
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/secure-ai-code-review/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+Security review can create a new data-exposure path if repository context, secrets, and architecture memory are not governed before model invocation.
+
+## Bound the context before inference
+
+        Changed files alone may be insufficient, but whole-repository prompts are not the only alternative. Select the IAM, network, data, ownership, and dependency facts required for the review. Deny unrelated repositories, secret-adjacent content, and broad topology. Record why each slice was released.
+
+## Minimum controls
+
+        - Workload authentication and repository-scoped authorization.
+- Secret, credential, token, and sensitive-literal redaction.
+- Encrypted context storage with schema and freshness metadata.
+- Source hashes, selected facts, denied facts, and model version in the audit record.
+- Human approval for merge, policy exceptions, and production actions.
+- Retention and deletion controls for repository memory and prompts.
+
+## Fail closed on missing authorization
+
+        If the reviewer cannot obtain an approved context set, it should stop or fall back to an explicitly limited diff-only review. It should not silently query broad stores or reuse context from another repository, tenant, or environment.
+
+## Measure security and quality together
+
+        Track prohibited-context release, required-fact coverage, finding precision and recall, reviewer acceptance, latency, and token usage. A cheaper prompt is not an improvement if it misses a required security fact. A higher recall is not acceptable if it exposes unauthorized repository content.
+
+        SecReviewAgent can use [Secure Context Cache](https://krishnamuppidi.github.io/secure-context-cache/) as the context-release layer for this design.
+
+
+---
+
+# Infrastructure-as-Code Security Review Checklist
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/iac-security-review-checklist/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+Use deterministic controls first, then evaluate architecture relationships, deployment impact, and the evidence behind any AI-generated finding.
+
+## Identity and access
+- Are actions, resources, principals, and trust conditions narrowly scoped?
+- Can any identity pass or assume a more privileged role?
+- Do workload identities match the intended namespace, service, account, and environment?
+- Are policy exceptions explicit, time-bounded, and owned?
+
+## Network and data paths
+- Does ingress expose public or administrative ports?
+- Is egress constrained for sensitive workloads?
+- Do routes, endpoints, load balancers, and security groups preserve segmentation?
+- Are storage, database, and key-management resources encrypted and access-scoped?
+
+## Kubernetes and containers
+- Are privileged mode, host namespaces, host paths, and unsafe capabilities disabled?
+- Are RBAC bindings namespaced and verb/resource scopes minimal?
+- Do NetworkPolicies cover both ingress and egress where required?
+- Are images pinned, scanned, and promoted with verifiable provenance?
+
+## AI-assisted review controls
+- Was the context authorized for this repository and task?
+- Were secrets and sensitive literals removed before inference?
+- Does every finding cite a resource and configuration value?
+- Are deterministic scanner results distinguishable from model reasoning?
+- Is a human responsible for the final merge or exception decision?
+
+## Evidence to retain
+Preserve the pull-request commit, scanner versions, policy bundle, selected context version, model and prompt version, structured findings, reviewer disposition, remediation commit, and final approval. This turns review from a comment stream into auditable engineering evidence.
+
+
+---
+
+# SecReviewAgent Research, Evaluation Method, and Claim Boundaries
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/research/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+The SecReviewAgent paper was accepted and presented at ICUFN 2026. This page separates paper-reported results from guarantees about the public prototype.
+
+## Research contribution
+
+        The paper, SecReviewAgent: Context-Aware Security Review of Infrastructure-as-Code Using Persistent Architecture Memory, presents a repository memory design, cold and warm review algorithms, Terraform and Kubernetes parsing, structured findings, and an empirical comparison focused on context-dependent security issues.
+
+        The work was accepted and presented at the 2026 International Conference on Ubiquitous and Future Networks (ICUFN). The conference manuscript names Naga Krishna Reddy Muppidi, Veera Ravindra Divi, Sneha Gullapalli, and Rambabu Pasumarthy as authors.
+
+## Results reported in the paper
+
+        847IaC pull requests
+23repositories
+0.89precision
+0.83F1
+2.4×context-dependent recall vs no-context baseline
+73%warm-review latency reduction
+
+        These are manuscript-reported research results under the paper’s dataset, labeling process, baselines, and implementation. They are not universal production guarantees.
+
+## Evaluation design
+
+        The manuscript describes comparisons with deterministic scanners and a no-context model, dual security labeling with adjudication, separate context-dependent recall analysis, cold and warm latency measurement, and a controlled practitioner study. The design is intended to test the specific mechanism: whether persistent repository context improves review of relational infrastructure risks.
+
+## Limitations and reproducibility
+
+        Private repositories cannot be redistributed. Aggregate statistics and methodology do not substitute for a public benchmark corpus. Model behavior, prompt design, parser quality, and baseline configuration can affect results. Architecture memory can become stale. Cross-repository systems are only partially modeled. Human review remains necessary.
+
+        [Read the conference manuscript](../assets/secreviewagent-icufn-2026-paper.pdf)
+
+
+---
+
+# About SecReviewAgent and Naga Krishna Reddy Muppidi
+
+Canonical URL: https://krishnamuppidi.github.io/secreviewagent-ai/about/
+Source code: https://github.com/krishnamuppidi/secreviewagent-ai
+
+SecReviewAgent turns repository architecture context into specific, reviewer-ready explanations for Terraform and Kubernetes changes.
+
+## Why this project exists
+
+        Infrastructure code encodes identity, networking, storage, encryption, and deployment authority, but pull requests show only the lines that changed. SecReviewAgent was created to preserve the architecture relationships a reviewer repeatedly reconstructs and use them to interpret the security impact of later changes.
+
+## Author
+
+        I am Naga Krishna Reddy Muppidi, an independent researcher and senior platform and cloud infrastructure engineer with more than ten years of experience across cloud platforms, Kubernetes, infrastructure automation, cybersecurity, distributed systems, FinOps, and regulated enterprise environments. My research focuses on secure AI agents, cloud security, cost-aware infrastructure, governance, and reliable AI-assisted operations.
+
+        [Google Scholar](https://scholar.google.com/citations?user=IKcQzPkAAAAJ&hl=en) · [ORCID](https://orcid.org/0009-0001-4342-540X) · [LinkedIn](https://www.linkedin.com/in/krishna-reddy-4b11ab133) · [GitHub](https://github.com/krishnamuppidi)
+
+## Product family
+
+        SecReviewAgent is the flagship Infrastructure-as-Code workflow. [Secure Context Cache](https://krishnamuppidi.github.io/secure-context-cache/) is the broader framework for selecting, reusing, authorizing, and measuring task context. Agent Context Gateway is the runtime boundary that can authenticate a workload and release a policy-scoped context capsule before model invocation.
+
+## Open-source boundary
+
+        The public repository is an inspectable reference implementation released under the MIT License. It is not a managed security service and does not represent a certification, warranty, or replacement for experienced human review. Organizations should validate it on authorized data and their own threat model.

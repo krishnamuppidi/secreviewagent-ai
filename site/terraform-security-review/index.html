@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070b18" />
+  <title>Context-Aware Terraform Security Review with SecReviewAgent</title>
+  <meta name="description" content="Review Terraform resources, IAM policies, security groups, references, and pull-request changes with repository-aware AI explanations." />
+  <meta name="keywords" content="Terraform security review, AI Terraform code review, Terraform IAM analysis, Terraform PR security" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://krishnamuppidi.github.io/secreviewagent-ai/terraform-security-review/" />
+  <link rel="alternate" type="text/markdown" href="index.md" />
+  <meta property="og:title" content="Context-Aware Terraform Security Review with SecReviewAgent" />
+  <meta property="og:description" content="Review Terraform resources, IAM policies, security groups, references, and pull-request changes with repository-aware AI explanations." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://krishnamuppidi.github.io/secreviewagent-ai/terraform-security-review/" />
+  <meta property="og:site_name" content="SecReviewAgent" />
+  <meta property="og:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <meta property="og:image:alt" content="SecReviewAgent context-aware Infrastructure-as-Code security review" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Context-Aware Terraform Security Review with SecReviewAgent" />
+  <meta name="twitter:description" content="Review Terraform resources, IAM policies, security groups, references, and pull-request changes with repository-aware AI explanations." />
+  <meta name="twitter:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Context-Aware Terraform Security Review with SecReviewAgent","description":"Review Terraform resources, IAM policies, security groups, references, and pull-request changes with repository-aware AI explanations.","url":"https://krishnamuppidi.github.io/secreviewagent-ai/terraform-security-review/","dateModified":"2026-07-28","author":{"@type":"Person","name":"Naga Krishna Reddy Muppidi","url":"https://scholar.google.com/citations?user=IKcQzPkAAAAJ&hl=en"},"publisher":{"@type":"Person","name":"Naga Krishna Reddy Muppidi"},"isPartOf":{"@type":"WebSite","name":"SecReviewAgent","url":"https://krishnamuppidi.github.io/secreviewagent-ai/"}}</script>
+  <script defer src="../analytics.js"></script>
+  <script defer src="../app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="../" aria-label="SecReviewAgent home"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <div class="nav-links" id="nav-links"><a href="../#how-it-works">How it works</a><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Docs</a></div>
+        <a class="button button-small nav-cta" href="https://github.com/krishnamuppidi/secreviewagent-ai">View GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  <main id="main">
+    <header class="page-hero"><div class="page-grid"></div><div class="container narrow reveal"><span class="eyebrow">Terraform security review</span><h1>Review what a Terraform change means—not only what its line contains.</h1><p>SecReviewAgent parses actual HCL values and resource references so findings can explain IAM, networking, data, and compute relationships.</p><div class="breadcrumb"><a href="../">SecReviewAgent</a><span>/</span><span>Terraform security review</span></div></div></header>
+    <article class="article container narrow reveal">
+        <section class="content-section"><h2>What the Terraform parser extracts</h2>
+        <p>The public implementation reads <code>.tf</code> and <code>.tf.json</code>, captures resource type, name, address, attributes, and references, and classifies common AWS compute, storage, identity, and network resources. IAM policy statements are normalized into allowed actions and resources. Security-group rules preserve direction, protocol, port range, CIDRs, source groups, and public-access state.</p>
+        <p>This structured context lets the model cite an actual resource address and configuration value. It also makes review output easier to test than a generic prompt that receives a folder of text.</p></section>
+        <section class="content-section"><h2>Questions a context-aware Terraform review should answer</h2>
+        <ul class="check-list"><li>Does a new principal inherit access through an existing assume-role chain?</li><li>Does a narrow action reach a sensitive bucket, table, secret, or encryption key?</li><li>Does a new network rule expose a workload with privileged downstream access?</li><li>Does a module reference change a production data path outside the edited file?</li><li>Is the finding deterministic, contextual, or uncertain—and is that distinction visible?</li></ul></section>
+        <section class="content-section"><h2>Use alongside Checkov, tfsec, and policy-as-code</h2>
+        <p>SecReviewAgent is not positioned as a replacement for deterministic scanning. Checkov, tfsec, Terrascan, KICS, Sentinel, and OPA remain valuable for known controls. The context-aware layer should consume their evidence, reason about cross-resource implications, and produce an explanation a reviewer can challenge.</p>
+        <p><a class="text-link" href="../checkov-vs-secreviewagent/">Compare deterministic and contextual review →</a></p></section>
+        <section class="content-section"><h2>Safe operating model</h2>
+        <p>Limit repository scope, redact sensitive literals, store architecture memory in encrypted storage, version its schema, expire stale facts, and keep merge authority outside the model. Measure precision, recall, latency, and reviewer acceptance on your own labeled pull requests before changing enforcement.</p></section>
+        </article>
+    <section class="related"><div class="container narrow"><span class="eyebrow">Continue exploring</span><h2>Put context-aware review into practice.</h2><div class="related-links"><a href="../examples/">Worked examples <span>→</span></a><a href="../docs/">Documentation <span>→</span></a><a href="../research/">Research and evidence <span>→</span></a></div></div></section>
+  </main>
+  
+    <footer class="footer"><div class="container footer-grid"><div><a class="brand" href="../"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a><p>Context-aware security review for Infrastructure-as-Code.</p></div><div><b>Explore</b><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Documentation</a></div><div><b>Guides</b><a href="../terraform-security-review/">Terraform review</a><a href="../kubernetes-security-review/">Kubernetes review</a><a href="../iac-security-review-checklist/">IaC checklist</a><a href="../about/">About</a></div><div><b>Project</b><a href="https://github.com/krishnamuppidi/secreviewagent-ai">Source code</a><a href="../assets/secreviewagent-icufn-2026-paper.pdf">Research paper</a><button id="analytics-preferences" class="footer-button" type="button">Analytics preferences</button></div></div><div class="container footer-bottom"><span>© <span id="year">2026</span> Naga Krishna Reddy Muppidi. MIT-licensed reference implementation.</span><span>Independent research · Human review required</span></div></footer>
+    <div id="analytics-consent" class="consent" role="dialog" aria-labelledby="analytics-consent-title" hidden><div><b id="analytics-consent-title">Privacy-respecting analytics</b><p>Allow anonymous GA4 usage analytics to improve the site. Advertising, Google Signals, personalization, names, emails, form contents, query strings, and full outbound URLs are not sent.</p></div><div class="consent-actions"><button class="button button-ghost" type="button" data-analytics-choice="denied">Decline</button><button class="button button-primary" type="button" data-analytics-choice="granted">Allow analytics</button></div></div>
+</body>
+</html>

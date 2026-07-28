@@ -1,0 +1,34 @@
+# SecReviewAgent
+
+> Context-aware Infrastructure-as-Code security review using persistent architecture memory.
+
+Canonical terminology: SecReviewAgent is the flagship IaC security review application. Secure Context Cache is the broader context-selection and authorization framework. Agent Context Gateway is the runtime context-release boundary.
+
+Claim boundary: the public implementation supports Terraform and Kubernetes parsing, structured review, PR diffs, a webhook, and an AWS deployment template. CloudFormation, Pulumi, Helm, Kustomize, CI pipeline, OPA/Rego, Dockerfile, and SBOM adapters are roadmap items unless a guide explicitly describes a render-and-review integration. Manuscript-reported metrics are research results, not universal production guarantees.
+
+## Start here
+
+- [Product website](https://krishnamuppidi.github.io/secreviewagent-ai/)
+- [Documentation](https://krishnamuppidi.github.io/secreviewagent-ai/docs/index.md)
+- [Use cases](https://krishnamuppidi.github.io/secreviewagent-ai/use-cases/index.md)
+- [Worked examples](https://krishnamuppidi.github.io/secreviewagent-ai/examples/index.md)
+- [Research and limitations](https://krishnamuppidi.github.io/secreviewagent-ai/research/index.md)
+- [GitHub repository](https://github.com/krishnamuppidi/secreviewagent-ai)
+
+## Technical guides
+
+- [SecReviewAgent Use Cases for IaC and Cloud Security Review](https://krishnamuppidi.github.io/secreviewagent-ai/use-cases/index.md)
+- [SecReviewAgent Examples: Terraform, IAM, Security Groups, and Kubernetes](https://krishnamuppidi.github.io/secreviewagent-ai/examples/index.md)
+- [SecReviewAgent Documentation: Install, Run, Integrate, and Deploy](https://krishnamuppidi.github.io/secreviewagent-ai/docs/index.md)
+- [Context-Aware Terraform Security Review with SecReviewAgent](https://krishnamuppidi.github.io/secreviewagent-ai/terraform-security-review/index.md)
+- [Kubernetes Manifest Security Review with Architecture Context](https://krishnamuppidi.github.io/secreviewagent-ai/kubernetes-security-review/index.md)
+- [AI-Assisted IAM Policy Analysis with Repository Context](https://krishnamuppidi.github.io/secreviewagent-ai/iam-policy-analysis/index.md)
+- [What Is Context-Aware Infrastructure-as-Code Security Review?](https://krishnamuppidi.github.io/secreviewagent-ai/context-aware-iac-security/index.md)
+- [Persistent Architecture Memory for DevSecOps and AI Code Review](https://krishnamuppidi.github.io/secreviewagent-ai/architecture-memory-devsecops/index.md)
+- [AI Code Review vs Static Analysis for Infrastructure-as-Code](https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-vs-static-analysis/index.md)
+- [Checkov vs SecReviewAgent: Rules and Context for IaC Security](https://krishnamuppidi.github.io/secreviewagent-ai/checkov-vs-secreviewagent/index.md)
+- [tfsec vs SecReviewAgent for Terraform Security Review](https://krishnamuppidi.github.io/secreviewagent-ai/tfsec-vs-secreviewagent/index.md)
+- [Secure AI Code Review: Least-Privilege Context for IaC](https://krishnamuppidi.github.io/secreviewagent-ai/secure-ai-code-review/index.md)
+- [Infrastructure-as-Code Security Review Checklist](https://krishnamuppidi.github.io/secreviewagent-ai/iac-security-review-checklist/index.md)
+- [SecReviewAgent Research, Evaluation Method, and Claim Boundaries](https://krishnamuppidi.github.io/secreviewagent-ai/research/index.md)
+- [About SecReviewAgent and Naga Krishna Reddy Muppidi](https://krishnamuppidi.github.io/secreviewagent-ai/about/index.md)

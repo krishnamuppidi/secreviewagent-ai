@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630"><stop stop-color="#070b18"/><stop offset=".55" stop-color="#0c1530"/><stop offset="1" stop-color="#101831"/></linearGradient>
+    <linearGradient id="accent" x1="170" y1="150" x2="930" y2="500"><stop stop-color="#55e6d8"/><stop offset=".5" stop-color="#6aa4ff"/><stop offset="1" stop-color="#a77dff"/></linearGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#6aa4ff" stroke-opacity=".08"/></pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="1060" cy="60" r="260" fill="none" stroke="#55e6d8" stroke-opacity=".13"/>
+  <rect x="88" y="92" width="62" height="62" rx="17" fill="#0d1831" stroke="#55e6d8" stroke-opacity=".7"/>
+  <text x="119" y="132" text-anchor="middle" font-family="monospace" font-size="22" font-weight="700" fill="#55e6d8">SR</text>
+  <text x="174" y="133" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#f4f7ff">SecReviewAgent</text>
+  <text x="88" y="260" font-family="Arial, sans-serif" font-size="66" font-weight="800" letter-spacing="-2.6" fill="#f4f7ff">Security review that remembers</text>
+  <text x="88" y="336" font-family="Arial, sans-serif" font-size="66" font-weight="800" letter-spacing="-2.6" fill="url(#accent)">the architecture.</text>
+  <text x="91" y="412" font-family="Arial, sans-serif" font-size="26" fill="#a9b4cf">Context-aware Terraform and Kubernetes review</text>
+  <g transform="translate(90 482)">
+    <rect width="175" height="48" rx="24" fill="#55e6d8" fill-opacity=".12" stroke="#55e6d8" stroke-opacity=".28"/>
+    <text x="88" y="30" text-anchor="middle" font-family="monospace" font-size="15" fill="#bff7ed">IAM + NETWORK</text>
+    <rect x="190" width="190" height="48" rx="24" fill="#6aa4ff" fill-opacity=".12" stroke="#6aa4ff" stroke-opacity=".28"/>
+    <text x="285" y="30" text-anchor="middle" font-family="monospace" font-size="15" fill="#cfe0ff">PERSISTENT MEMORY</text>
+    <rect x="395" width="185" height="48" rx="24" fill="#a77dff" fill-opacity=".12" stroke="#a77dff" stroke-opacity=".28"/>
+    <text x="488" y="30" text-anchor="middle" font-family="monospace" font-size="15" fill="#e0d3ff">HUMAN APPROVAL</text>
+  </g>
+</svg>

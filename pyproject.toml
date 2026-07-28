@@ -53,8 +53,10 @@ dev = [
 secreview = "secreviewagent.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/krishnamuppidi/secreviewagent-ai"
+Homepage = "https://krishnamuppidi.github.io/secreviewagent-ai/"
 Repository = "https://github.com/krishnamuppidi/secreviewagent-ai"
+Documentation = "https://krishnamuppidi.github.io/secreviewagent-ai/docs/"
+Research = "https://krishnamuppidi.github.io/secreviewagent-ai/research/"
 
 [tool.setuptools.packages.find]
 where = ["src"]

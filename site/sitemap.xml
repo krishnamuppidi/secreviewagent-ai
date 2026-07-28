@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/</loc><lastmod>2026-07-28</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/use-cases/</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/examples/</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/docs/</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/terraform-security-review/</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/kubernetes-security-review/</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/iam-policy-analysis/</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/context-aware-iac-security/</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/architecture-memory-devsecops/</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-vs-static-analysis/</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/checkov-vs-secreviewagent/</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/tfsec-vs-secreviewagent/</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/secure-ai-code-review/</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/iac-security-review-checklist/</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/research/</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://krishnamuppidi.github.io/secreviewagent-ai/about/</loc><lastmod>2026-07-28</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+</urlset>

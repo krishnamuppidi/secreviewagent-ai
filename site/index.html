@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070b18" />
+  <title>SecReviewAgent — Context-Aware Security Review for Infrastructure-as-Code</title>
+  <meta name="description" content="Review Terraform and Kubernetes changes with persistent architecture memory, structured findings, and explainable security context." />
+  <meta name="keywords" content="IaC security review, AI Terraform review, Kubernetes security review, persistent architecture memory" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://krishnamuppidi.github.io/secreviewagent-ai/" />
+  <link rel="alternate" type="text/markdown" href="index.md" />
+  <meta property="og:title" content="SecReviewAgent — Context-Aware Security Review for Infrastructure-as-Code" />
+  <meta property="og:description" content="Review Terraform and Kubernetes changes with persistent architecture memory, structured findings, and explainable security context." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://krishnamuppidi.github.io/secreviewagent-ai/" />
+  <meta property="og:site_name" content="SecReviewAgent" />
+  <meta property="og:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <meta property="og:image:alt" content="SecReviewAgent context-aware Infrastructure-as-Code security review" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SecReviewAgent — Context-Aware Security Review for Infrastructure-as-Code" />
+  <meta name="twitter:description" content="Review Terraform and Kubernetes changes with persistent architecture memory, structured findings, and explainable security context." />
+  <meta name="twitter:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"SecReviewAgent","applicationCategory":"SecurityApplication","operatingSystem":"Cross-platform","description":"Review Terraform and Kubernetes changes with persistent architecture memory, structured findings, and explainable security context.","url":"https://krishnamuppidi.github.io/secreviewagent-ai/","codeRepository":"https://github.com/krishnamuppidi/secreviewagent-ai","license":"https://opensource.org/license/mit","author":{"@type":"Person","name":"Naga Krishna Reddy Muppidi"},"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"WebSite","name":"SecReviewAgent","url":"https://krishnamuppidi.github.io/secreviewagent-ai/"}]}</script>
+  <script defer src="analytics.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="" aria-label="SecReviewAgent home"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <div class="nav-links" id="nav-links"><a href="#how-it-works">How it works</a><a href="use-cases/">Use cases</a><a href="examples/">Examples</a><a href="research/">Research</a><a href="docs/">Docs</a></div>
+        <a class="button button-small nav-cta" href="https://github.com/krishnamuppidi/secreviewagent-ai">View GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  <main id="main">
+    <header class="hero" id="top">
+      <div class="hero-grid"></div><div class="hero-orb orb-one"></div><div class="hero-orb orb-two"></div>
+      <div class="container hero-layout">
+        <div class="hero-copy reveal">
+          <a class="release-pill" href="https://github.com/krishnamuppidi/secreviewagent-ai"><span class="status-dot"></span>Open-source IaC security research · MIT <span>↗</span></a>
+          <h1>Security review that remembers<br /><span>the architecture.</span></h1>
+          <p class="hero-lead">SecReviewAgent reviews Terraform and Kubernetes changes against persistent repository context—so IAM paths, network boundaries, workload identity, and data relationships are not lost between pull requests.</p>
+          <div class="hero-actions"><a class="button button-primary" href="examples/">Explore worked examples</a><a class="button button-ghost" href="docs/">Run the prototype <span>→</span></a></div>
+          <div class="hero-proof"><span><i>✓</i> Terraform + Kubernetes</span><span><i>✓</i> Structured findings</span><span><i>✓</i> Human approval stays in control</span></div>
+        </div>
+        <div class="review-console reveal reveal-delay" aria-label="Context-aware review preview">
+          <div class="console-top"><span class="window-dots"><i></i><i></i><i></i></span><code>PR #184 · terraform/prod</code><span class="console-live"><i></i>context loaded</span></div>
+          <div class="console-body">
+            <div class="diff"><span class="line">+ Action = "s3:GetObject"</span><span class="line">+ Resource = aws_s3_bucket.risk_data.arn</span></div>
+            <div class="context-path"><div><small>Changed permission</small><b>reporting-reader</b></div><i>→</i><div><small>Existing trust</small><b>external-ci-role</b></div><i>→</i><div><small>Data boundary</small><b>prod-risk-data/*</b></div></div>
+            <div class="finding"><span>HIGH · context-dependent</span><h3>Cross-account read path reaches production risk data.</h3><p>The new permission combines with an existing trust policy not visible in the changed file.</p><div><code>Restrict principal + prefix + external ID</code></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="container capability-strip"><span>Built for</span><b>Terraform</b><b>Kubernetes</b><b>IAM</b><b>RBAC</b><b>Network policy</b><b>Pull requests</b><b>DevSecOps</b></div>
+    </header>
+
+    <section class="section" id="why-context"><div class="container">
+      <div class="section-heading reveal"><span class="eyebrow">The missing review layer</span><h2>A safe-looking line can create<br /><span>an unsafe architecture path.</span></h2><p>Deterministic scanners catch known patterns. SecReviewAgent adds the repository relationships required to explain how a change affects the system around it.</p></div>
+      <div class="bento-grid">
+        <article class="bento bento-large reveal"><span class="card-index">01 · Persistent context</span><h3>Carry architecture knowledge across pull requests.</h3><p>Build a versioned view of resources, references, IAM relationships, data paths, and security notes once, then update it as the repository changes.</p><div class="memory-map"><span>Resources</span><span>IAM graph</span><span>Network</span><span>Data paths</span><span>Ownership</span></div></article>
+        <article class="bento reveal"><span class="card-index">02 · Specific evidence</span><h3>Explain the actual configuration.</h3><p>Findings name resource addresses, configuration values, affected relationships, and a concrete remediation.</p></article>
+        <article class="bento reveal"><span class="card-index">03 · Layered security</span><h3>Complement scanners. Do not hide them.</h3><p>Keep Checkov, tfsec/Trivy, OPA, and human review. Add contextual reasoning where rules cannot see the full path.</p></article>
+        <article class="bento bento-wide reveal"><span class="card-index">04 · Controlled boundary</span><h3>Release only the context approved for the review task.</h3><p>Pair SecReviewAgent with Secure Context Cache to minimize prompt scope, preserve provenance, and deny unrelated repository knowledge.</p><a href="secure-ai-code-review/">Explore secure AI review controls →</a></article>
+      </div>
+    </div></section>
+
+    <section class="section process-section" id="how-it-works"><div class="container">
+      <div class="section-heading reveal"><span class="eyrow eyebrow">Review flow</span><h2>Cold-start once. Review in context.<br /><span>Update memory deliberately.</span></h2></div>
+      <div class="steps"><article><span>01</span><h3>Parse</h3><p>Extract Terraform or Kubernetes resources, policies, bindings, and references.</p></article><article><span>02</span><h3>Build or load</h3><p>Create repository context on the first review; load the versioned architecture view later.</p></article><article><span>03</span><h3>Reason</h3><p>Evaluate the diff beside approved architecture facts and return strict structured findings.</p></article><article><span>04</span><h3>Decide</h3><p>A human validates the evidence, remediates, suppresses, or approves. The model never merges.</p></article></div>
+      <div class="center-action"><a class="button button-primary" href="context-aware-iac-security/">Learn the architecture</a></div>
+    </div></section>
+
+    <section class="section evidence-section"><div class="container evidence-layout">
+      <div class="reveal"><span class="eyebrow">Peer-reviewed research</span><h2>Evaluated on context-dependent IaC findings.</h2><p>The SecReviewAgent manuscript was accepted and presented at ICUFN 2026. It reports a labeled-corpus evaluation and practitioner study designed to test the effect of persistent architecture memory.</p><a class="button button-ghost" href="research/">Read results and limitations</a></div>
+      <div class="metric-grid reveal"><div><strong>847</strong><span>pull requests</span></div><div><strong>23</strong><span>repositories</span></div><div><strong>0.89</strong><span>precision</span></div><div><strong>0.83</strong><span>F1</span></div><div><strong>2.4×</strong><span>context recall</span></div><div><strong>73%</strong><span>warm latency reduction</span></div><p class="metric-note">Paper-reported research results; not universal production guarantees.</p></div>
+    </div></section>
+
+    <section class="section"><div class="container">
+      <div class="section-heading reveal"><span class="eyebrow">Practical coverage</span><h2>Start with supported workflows.<br /><span>Expand through tested adapters.</span></h2></div>
+      <div class="use-grid"><a href="terraform-security-review/"><span>Terraform</span><h3>Resource, IAM, security-group, and reference analysis</h3><p>Trace a change through existing infrastructure relationships.</p><b>Explore →</b></a><a href="kubernetes-security-review/"><span>Kubernetes</span><h3>Workload, RBAC, IRSA, ingress, and network policy</h3><p>Connect cluster privilege to workload and cloud identity.</p><b>Explore →</b></a><a href="iam-policy-analysis/"><span>IAM</span><h3>Actions, resources, principals, and trust paths</h3><p>Review least privilege in architectural context.</p><b>Explore →</b></a><a href="examples/"><span>Examples</span><h3>Reviewer-ready findings with actual configuration</h3><p>See the changed line, stored context, and remediation together.</p><b>Explore →</b></a></div>
+    </div></section>
+
+    <section class="section search-hub"><div class="container">
+      <div class="section-heading reveal"><span class="eyebrow">Technical learning hub</span><h2>Detailed guides, not thin keyword pages.</h2><p>Each resource answers a distinct engineering question and links back to runnable code or an explicit roadmap boundary.</p></div>
+      <div class="guide-list reveal"><a href="ai-code-review-vs-static-analysis/"><span>Comparison</span><b>AI code review vs static analysis for IaC</b><i>→</i></a><a href="checkov-vs-secreviewagent/"><span>Comparison</span><b>Checkov vs SecReviewAgent</b><i>→</i></a><a href="tfsec-vs-secreviewagent/"><span>Comparison</span><b>tfsec vs SecReviewAgent</b><i>→</i></a><a href="architecture-memory-devsecops/"><span>Architecture</span><b>Persistent repository memory for DevSecOps</b><i>→</i></a><a href="secure-ai-code-review/"><span>Security</span><b>Least-privilege context for AI code review</b><i>→</i></a><a href="iac-security-review-checklist/"><span>Checklist</span><b>Infrastructure-as-Code review checklist</b><i>→</i></a></div>
+    </div></section>
+
+    <section class="cta-section"><div class="container cta-card reveal"><div><span class="eyebrow">Inspect the implementation</span><h2>Run the prototype on an authorized test repository.</h2><p>Start with the included fixture, verify the structured output, and evaluate against a labeled pull-request set before production use.</p></div><div><a class="button button-primary" href="docs/">Open documentation</a><a class="button button-ghost" href="https://github.com/krishnamuppidi/secreviewagent-ai">View source ↗</a></div></div></section>
+  </main>
+  
+    <footer class="footer"><div class="container footer-grid"><div><a class="brand" href=""><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a><p>Context-aware security review for Infrastructure-as-Code.</p></div><div><b>Explore</b><a href="use-cases/">Use cases</a><a href="examples/">Examples</a><a href="research/">Research</a><a href="docs/">Documentation</a></div><div><b>Guides</b><a href="terraform-security-review/">Terraform review</a><a href="kubernetes-security-review/">Kubernetes review</a><a href="iac-security-review-checklist/">IaC checklist</a><a href="about/">About</a></div><div><b>Project</b><a href="https://github.com/krishnamuppidi/secreviewagent-ai">Source code</a><a href="assets/secreviewagent-icufn-2026-paper.pdf">Research paper</a><button id="analytics-preferences" class="footer-button" type="button">Analytics preferences</button></div></div><div class="container footer-bottom"><span>© <span id="year">2026</span> Naga Krishna Reddy Muppidi. MIT-licensed reference implementation.</span><span>Independent research · Human review required</span></div></footer>
+    <div id="analytics-consent" class="consent" role="dialog" aria-labelledby="analytics-consent-title" hidden><div><b id="analytics-consent-title">Privacy-respecting analytics</b><p>Allow anonymous GA4 usage analytics to improve the site. Advertising, Google Signals, personalization, names, emails, form contents, query strings, and full outbound URLs are not sent.</p></div><div class="consent-actions"><button class="button button-ghost" type="button" data-analytics-choice="denied">Decline</button><button class="button button-primary" type="button" data-analytics-choice="granted">Allow analytics</button></div></div>
+</body>
+</html>

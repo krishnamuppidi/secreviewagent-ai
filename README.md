@@ -17,7 +17,9 @@ dependency facts approved for that review.
 - Compare changed-files-only, full-context, and governed-capsule review paths using provider usage,
   recall, precision, latency, cost, and reviewer acceptance.
 
-**Product website:** https://krishnamuppidi.github.io/secure-context-cache/
+**Product website:** https://krishnamuppidi.github.io/secreviewagent-ai/
+
+**Foundational framework:** https://krishnamuppidi.github.io/secure-context-cache/
 
 ## Contents
 
@@ -26,6 +28,8 @@ dependency facts approved for that review.
 - `infra/` - Terraform deployment template and example variable file.
 - `examples/` - Small Terraform fixture for local review.
 - `tests/` - Parser and behavior tests.
+- `site/` - Product website, technical guides, machine-readable documentation, and analytics.
+- `scripts/build_website.py` - Deterministic static-site generator.
 
 Excluded from this clean code copy: generated artifacts, Terraform state, real tfvars,
 caches, packaged zip files, and private deployment outputs.
@@ -43,6 +47,13 @@ Run a local review:
 
 ```bash
 secreview analyze examples/terraform --type terraform
+```
+
+Build and validate the website:
+
+```bash
+python scripts/build_website.py
+pytest -q
 ```
 
 ## Disclaimer

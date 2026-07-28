@@ -1,0 +1,53 @@
+name: deploy website
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+      - "scripts/build_website.py"
+      - ".github/workflows/deploy-website.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Notify IndexNow
+        continue-on-error: true
+        run: |
+          for attempt in 1 2 3; do
+            if curl --fail-with-body --silent --show-error \
+              --request POST "https://api.indexnow.org/indexnow" \
+              --header "content-type: application/json; charset=utf-8" \
+              --data @site/indexnow-urls.json; then
+              exit 0
+            fi
+            sleep $((attempt * 10))
+          done
+          exit 1

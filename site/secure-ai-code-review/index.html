@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070b18" />
+  <title>Secure AI Code Review: Least-Privilege Context for IaC</title>
+  <meta name="description" content="Design AI-assisted code review with least-privilege repository context, secret redaction, provenance, audit records, and human approval." />
+  <meta name="keywords" content="secure AI code review, least privilege LLM context, AI code review privacy, secure IaC AI" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://krishnamuppidi.github.io/secreviewagent-ai/secure-ai-code-review/" />
+  <link rel="alternate" type="text/markdown" href="index.md" />
+  <meta property="og:title" content="Secure AI Code Review: Least-Privilege Context for IaC" />
+  <meta property="og:description" content="Design AI-assisted code review with least-privilege repository context, secret redaction, provenance, audit records, and human approval." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://krishnamuppidi.github.io/secreviewagent-ai/secure-ai-code-review/" />
+  <meta property="og:site_name" content="SecReviewAgent" />
+  <meta property="og:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <meta property="og:image:alt" content="SecReviewAgent context-aware Infrastructure-as-Code security review" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Secure AI Code Review: Least-Privilege Context for IaC" />
+  <meta name="twitter:description" content="Design AI-assisted code review with least-privilege repository context, secret redaction, provenance, audit records, and human approval." />
+  <meta name="twitter:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Secure AI Code Review: Least-Privilege Context for IaC","description":"Design AI-assisted code review with least-privilege repository context, secret redaction, provenance, audit records, and human approval.","url":"https://krishnamuppidi.github.io/secreviewagent-ai/secure-ai-code-review/","dateModified":"2026-07-28","author":{"@type":"Person","name":"Naga Krishna Reddy Muppidi","url":"https://scholar.google.com/citations?user=IKcQzPkAAAAJ&hl=en"},"publisher":{"@type":"Person","name":"Naga Krishna Reddy Muppidi"},"isPartOf":{"@type":"WebSite","name":"SecReviewAgent","url":"https://krishnamuppidi.github.io/secreviewagent-ai/"}}</script>
+  <script defer src="../analytics.js"></script>
+  <script defer src="../app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="../" aria-label="SecReviewAgent home"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <div class="nav-links" id="nav-links"><a href="../#how-it-works">How it works</a><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Docs</a></div>
+        <a class="button button-small nav-cta" href="https://github.com/krishnamuppidi/secreviewagent-ai">View GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  <main id="main">
+    <header class="page-hero"><div class="page-grid"></div><div class="container narrow reveal"><span class="eyebrow">Secure AI review</span><h1>The model should receive the minimum approved context—not the entire enterprise map.</h1><p>Security review can create a new data-exposure path if repository context, secrets, and architecture memory are not governed before model invocation.</p><div class="breadcrumb"><a href="../">SecReviewAgent</a><span>/</span><span>Secure AI review</span></div></div></header>
+    <article class="article container narrow reveal">
+        <section class="content-section"><h2>Bound the context before inference</h2>
+        <p>Changed files alone may be insufficient, but whole-repository prompts are not the only alternative. Select the IAM, network, data, ownership, and dependency facts required for the review. Deny unrelated repositories, secret-adjacent content, and broad topology. Record why each slice was released.</p></section>
+        <section class="content-section"><h2>Minimum controls</h2>
+        <ul class="check-list"><li>Workload authentication and repository-scoped authorization.</li><li>Secret, credential, token, and sensitive-literal redaction.</li><li>Encrypted context storage with schema and freshness metadata.</li><li>Source hashes, selected facts, denied facts, and model version in the audit record.</li><li>Human approval for merge, policy exceptions, and production actions.</li><li>Retention and deletion controls for repository memory and prompts.</li></ul></section>
+        <section class="content-section"><h2>Fail closed on missing authorization</h2>
+        <p>If the reviewer cannot obtain an approved context set, it should stop or fall back to an explicitly limited diff-only review. It should not silently query broad stores or reuse context from another repository, tenant, or environment.</p></section>
+        <section class="content-section"><h2>Measure security and quality together</h2>
+        <p>Track prohibited-context release, required-fact coverage, finding precision and recall, reviewer acceptance, latency, and token usage. A cheaper prompt is not an improvement if it misses a required security fact. A higher recall is not acceptable if it exposes unauthorized repository content.</p>
+        <p>SecReviewAgent can use <a href="https://krishnamuppidi.github.io/secure-context-cache/">Secure Context Cache</a> as the context-release layer for this design.</p></section>
+        </article>
+    <section class="related"><div class="container narrow"><span class="eyebrow">Continue exploring</span><h2>Put context-aware review into practice.</h2><div class="related-links"><a href="../examples/">Worked examples <span>→</span></a><a href="../docs/">Documentation <span>→</span></a><a href="../research/">Research and evidence <span>→</span></a></div></div></section>
+  </main>
+  
+    <footer class="footer"><div class="container footer-grid"><div><a class="brand" href="../"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a><p>Context-aware security review for Infrastructure-as-Code.</p></div><div><b>Explore</b><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Documentation</a></div><div><b>Guides</b><a href="../terraform-security-review/">Terraform review</a><a href="../kubernetes-security-review/">Kubernetes review</a><a href="../iac-security-review-checklist/">IaC checklist</a><a href="../about/">About</a></div><div><b>Project</b><a href="https://github.com/krishnamuppidi/secreviewagent-ai">Source code</a><a href="../assets/secreviewagent-icufn-2026-paper.pdf">Research paper</a><button id="analytics-preferences" class="footer-button" type="button">Analytics preferences</button></div></div><div class="container footer-bottom"><span>© <span id="year">2026</span> Naga Krishna Reddy Muppidi. MIT-licensed reference implementation.</span><span>Independent research · Human review required</span></div></footer>
+    <div id="analytics-consent" class="consent" role="dialog" aria-labelledby="analytics-consent-title" hidden><div><b id="analytics-consent-title">Privacy-respecting analytics</b><p>Allow anonymous GA4 usage analytics to improve the site. Advertising, Google Signals, personalization, names, emails, form contents, query strings, and full outbound URLs are not sent.</p></div><div class="consent-actions"><button class="button button-ghost" type="button" data-analytics-choice="denied">Decline</button><button class="button button-primary" type="button" data-analytics-choice="granted">Allow analytics</button></div></div>
+</body>
+</html>

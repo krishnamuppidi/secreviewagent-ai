@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070b18" />
+  <title>SecReviewAgent Examples: Terraform, IAM, Security Groups, and Kubernetes</title>
+  <meta name="description" content="Walk through practical SecReviewAgent examples for Terraform IAM permissions, public security groups, Kubernetes RBAC, and network policies." />
+  <meta name="keywords" content="Terraform security example, IAM policy analysis example, Kubernetes RBAC review, security group review" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://krishnamuppidi.github.io/secreviewagent-ai/examples/" />
+  <link rel="alternate" type="text/markdown" href="index.md" />
+  <meta property="og:title" content="SecReviewAgent Examples: Terraform, IAM, Security Groups, and Kubernetes" />
+  <meta property="og:description" content="Walk through practical SecReviewAgent examples for Terraform IAM permissions, public security groups, Kubernetes RBAC, and network policies." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://krishnamuppidi.github.io/secreviewagent-ai/examples/" />
+  <meta property="og:site_name" content="SecReviewAgent" />
+  <meta property="og:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <meta property="og:image:alt" content="SecReviewAgent context-aware Infrastructure-as-Code security review" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SecReviewAgent Examples: Terraform, IAM, Security Groups, and Kubernetes" />
+  <meta name="twitter:description" content="Walk through practical SecReviewAgent examples for Terraform IAM permissions, public security groups, Kubernetes RBAC, and network policies." />
+  <meta name="twitter:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"SecReviewAgent Examples: Terraform, IAM, Security Groups, and Kubernetes","description":"Walk through practical SecReviewAgent examples for Terraform IAM permissions, public security groups, Kubernetes RBAC, and network policies.","url":"https://krishnamuppidi.github.io/secreviewagent-ai/examples/","dateModified":"2026-07-28","author":{"@type":"Person","name":"Naga Krishna Reddy Muppidi","url":"https://scholar.google.com/citations?user=IKcQzPkAAAAJ&hl=en"},"publisher":{"@type":"Person","name":"Naga Krishna Reddy Muppidi"},"isPartOf":{"@type":"WebSite","name":"SecReviewAgent","url":"https://krishnamuppidi.github.io/secreviewagent-ai/"}}</script>
+  <script defer src="../analytics.js"></script>
+  <script defer src="../app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="../" aria-label="SecReviewAgent home"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <div class="nav-links" id="nav-links"><a href="../#how-it-works">How it works</a><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Docs</a></div>
+        <a class="button button-small nav-cta" href="https://github.com/krishnamuppidi/secreviewagent-ai">View GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  <main id="main">
+    <header class="page-hero"><div class="page-grid"></div><div class="container narrow reveal"><span class="eyebrow">Worked examples</span><h1>See the difference between a local rule and an architectural finding.</h1><p>Each example traces the changed configuration, the additional context, the resulting risk statement, and a reviewer-ready remediation.</p><div class="breadcrumb"><a href="../">SecReviewAgent</a><span>/</span><span>Worked examples</span></div></div></header>
+    <article class="article container narrow reveal">
+        <section class="content-section"><h2>Example 1: read-only IAM permission with a risky trust path</h2>
+        <div class="example-flow"><div><b>Changed line</b><code>"s3:GetObject"</code></div><i>+</i><div><b>Stored context</b><code>cross-account trust → prod-risk-data/*</code></div><i>=</i><div class="danger"><b>Finding</b><code>external read path to sensitive data</code></div></div>
+        <p>A diff-only review may treat read access as low risk. SecReviewAgent can combine the action, target resource, trust policy, and repository data-path description. The finding should state exactly which role can be assumed, which prefix is reachable, and why that prefix matters. A useful recommendation may narrow the principal, require an external ID, constrain the prefix, and add an explicit deny for unapproved environments.</p></section>
+        <section class="content-section"><h2>Example 2: public SSH rule</h2>
+        <pre><code>ingress {
+  protocol    = "tcp"
+  from_port   = 22
+  to_port     = 22
+  cidr_blocks = ["0.0.0.0/0"]
+}</code></pre>
+        <p>The Terraform parser marks this rule public and preserves the actual ports and CIDR. The review output can name the affected security group and recommend a private access path, a managed session service, or a constrained administrative CIDR. This is a deterministic issue, so a static scanner should remain the primary control; SecReviewAgent adds an explanation tied to the surrounding workload.</p></section>
+        <section class="content-section"><h2>Example 3: Kubernetes cluster-wide privilege</h2>
+        <pre><code>kind: ClusterRoleBinding
+subjects:
+  - kind: ServiceAccount
+    name: deployer
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin</code></pre>
+        <p>The Kubernetes parser connects the service account to the binding. If IRSA annotations and workload references are also present, the reviewer can evaluate both Kubernetes and cloud privilege. The remediation may replace the cluster-wide role with a namespace-scoped Role, restrict verbs and resources, and separate deployment automation from runtime identity.</p></section>
+        <section class="content-section"><h2>What a good output contains</h2>
+        <p>SecReviewAgent returns an architecture summary, service interactions, resource-specific explanations, severity-ranked findings, affected resource addresses, concept references, and actionable recommendations. The output remains evidence for a human decision—not an autonomous approval or deployment command.</p>
+        <p><a class="text-link" href="../docs/">Run the included Terraform fixture and inspect the JSON contract →</a></p></section>
+        </article>
+    <section class="related"><div class="container narrow"><span class="eyebrow">Continue exploring</span><h2>Put context-aware review into practice.</h2><div class="related-links"><a href="../examples/">Worked examples <span>→</span></a><a href="../docs/">Documentation <span>→</span></a><a href="../research/">Research and evidence <span>→</span></a></div></div></section>
+  </main>
+  
+    <footer class="footer"><div class="container footer-grid"><div><a class="brand" href="../"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a><p>Context-aware security review for Infrastructure-as-Code.</p></div><div><b>Explore</b><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Documentation</a></div><div><b>Guides</b><a href="../terraform-security-review/">Terraform review</a><a href="../kubernetes-security-review/">Kubernetes review</a><a href="../iac-security-review-checklist/">IaC checklist</a><a href="../about/">About</a></div><div><b>Project</b><a href="https://github.com/krishnamuppidi/secreviewagent-ai">Source code</a><a href="../assets/secreviewagent-icufn-2026-paper.pdf">Research paper</a><button id="analytics-preferences" class="footer-button" type="button">Analytics preferences</button></div></div><div class="container footer-bottom"><span>© <span id="year">2026</span> Naga Krishna Reddy Muppidi. MIT-licensed reference implementation.</span><span>Independent research · Human review required</span></div></footer>
+    <div id="analytics-consent" class="consent" role="dialog" aria-labelledby="analytics-consent-title" hidden><div><b id="analytics-consent-title">Privacy-respecting analytics</b><p>Allow anonymous GA4 usage analytics to improve the site. Advertising, Google Signals, personalization, names, emails, form contents, query strings, and full outbound URLs are not sent.</p></div><div class="consent-actions"><button class="button button-ghost" type="button" data-analytics-choice="denied">Decline</button><button class="button button-primary" type="button" data-analytics-choice="granted">Allow analytics</button></div></div>
+</body>
+</html>

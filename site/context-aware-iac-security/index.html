@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070b18" />
+  <title>What Is Context-Aware Infrastructure-as-Code Security Review?</title>
+  <meta name="description" content="Learn how persistent architecture memory helps IaC security review find cross-resource risks that are invisible in isolated pull-request diffs." />
+  <meta name="keywords" content="context aware IaC security, persistent architecture memory, AI infrastructure code review, DevSecOps architecture context" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://krishnamuppidi.github.io/secreviewagent-ai/context-aware-iac-security/" />
+  <link rel="alternate" type="text/markdown" href="index.md" />
+  <meta property="og:title" content="What Is Context-Aware Infrastructure-as-Code Security Review?" />
+  <meta property="og:description" content="Learn how persistent architecture memory helps IaC security review find cross-resource risks that are invisible in isolated pull-request diffs." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://krishnamuppidi.github.io/secreviewagent-ai/context-aware-iac-security/" />
+  <meta property="og:site_name" content="SecReviewAgent" />
+  <meta property="og:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <meta property="og:image:alt" content="SecReviewAgent context-aware Infrastructure-as-Code security review" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="What Is Context-Aware Infrastructure-as-Code Security Review?" />
+  <meta name="twitter:description" content="Learn how persistent architecture memory helps IaC security review find cross-resource risks that are invisible in isolated pull-request diffs." />
+  <meta name="twitter:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"What Is Context-Aware Infrastructure-as-Code Security Review?","description":"Learn how persistent architecture memory helps IaC security review find cross-resource risks that are invisible in isolated pull-request diffs.","url":"https://krishnamuppidi.github.io/secreviewagent-ai/context-aware-iac-security/","dateModified":"2026-07-28","author":{"@type":"Person","name":"Naga Krishna Reddy Muppidi","url":"https://scholar.google.com/citations?user=IKcQzPkAAAAJ&hl=en"},"publisher":{"@type":"Person","name":"Naga Krishna Reddy Muppidi"},"isPartOf":{"@type":"WebSite","name":"SecReviewAgent","url":"https://krishnamuppidi.github.io/secreviewagent-ai/"}}</script>
+  <script defer src="../analytics.js"></script>
+  <script defer src="../app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="../" aria-label="SecReviewAgent home"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <div class="nav-links" id="nav-links"><a href="../#how-it-works">How it works</a><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Docs</a></div>
+        <a class="button button-small nav-cta" href="https://github.com/krishnamuppidi/secreviewagent-ai">View GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  <main id="main">
+    <header class="page-hero"><div class="page-grid"></div><div class="container narrow reveal"><span class="eyebrow">Core concept</span><h1>Infrastructure risk lives in relationships across files, resources, and reviews.</h1><p>Context-aware IaC review combines the current diff with a maintained model of architecture, identity, network paths, and prior repository facts.</p><div class="breadcrumb"><a href="../">SecReviewAgent</a><span>/</span><span>Core concept</span></div></div></header>
+    <article class="article container narrow reveal">
+        <section class="content-section"><h2>Diff-only review has a structural blind spot</h2>
+        <p>A pull request is a useful unit of change, but it is not a complete unit of security meaning. A new route can expose an old workload. A new role trust can activate an old permission. A service account change can connect Kubernetes privilege to cloud privilege. Reviewers reconstruct those relationships manually because the diff does not contain them.</p></section>
+        <section class="content-section"><h2>Persistent architecture memory</h2>
+        <p>On a cold review, SecReviewAgent parses infrastructure files and builds a repository model containing a summary, components, references, inferred data flows, and IAM relationships. On a warm review, it loads that model, evaluates the change, and updates the stored state when architecture-relevant facts change. This avoids treating every review as a new repository.</p>
+        <p>Architecture memory must be governed. It should have provenance, schema versions, freshness controls, encryption, repository boundaries, and deletion behavior. A stale or overbroad memory can create its own security problem.</p></section>
+        <section class="content-section"><h2>Layered review is the intended design</h2>
+        <div class="layer-stack"><div><b>1. Deterministic scanners</b><span>Known misconfigurations and policy failures</span></div><div><b>2. Architecture context</b><span>Repository relationships, trust paths, and data flows</span></div><div><b>3. Model reasoning</b><span>Specific explanation and remediation</span></div><div><b>4. Human decision</b><span>Validate, suppress, remediate, or approve</span></div></div></section>
+        <section class="content-section"><h2>How to measure whether context helps</h2>
+        <p>Build a labeled pull-request set with both local and context-dependent issues. Compare deterministic scanners, a no-context model, and the context-aware system on the same set. Report precision, recall, F1, false positives, latency, cost, and reviewer acceptance. Separate cold and warm reviews so architecture reconstruction is not hidden inside one average.</p></section>
+        </article>
+    <section class="related"><div class="container narrow"><span class="eyebrow">Continue exploring</span><h2>Put context-aware review into practice.</h2><div class="related-links"><a href="../examples/">Worked examples <span>→</span></a><a href="../docs/">Documentation <span>→</span></a><a href="../research/">Research and evidence <span>→</span></a></div></div></section>
+  </main>
+  
+    <footer class="footer"><div class="container footer-grid"><div><a class="brand" href="../"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a><p>Context-aware security review for Infrastructure-as-Code.</p></div><div><b>Explore</b><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Documentation</a></div><div><b>Guides</b><a href="../terraform-security-review/">Terraform review</a><a href="../kubernetes-security-review/">Kubernetes review</a><a href="../iac-security-review-checklist/">IaC checklist</a><a href="../about/">About</a></div><div><b>Project</b><a href="https://github.com/krishnamuppidi/secreviewagent-ai">Source code</a><a href="../assets/secreviewagent-icufn-2026-paper.pdf">Research paper</a><button id="analytics-preferences" class="footer-button" type="button">Analytics preferences</button></div></div><div class="container footer-bottom"><span>© <span id="year">2026</span> Naga Krishna Reddy Muppidi. MIT-licensed reference implementation.</span><span>Independent research · Human review required</span></div></footer>
+    <div id="analytics-consent" class="consent" role="dialog" aria-labelledby="analytics-consent-title" hidden><div><b id="analytics-consent-title">Privacy-respecting analytics</b><p>Allow anonymous GA4 usage analytics to improve the site. Advertising, Google Signals, personalization, names, emails, form contents, query strings, and full outbound URLs are not sent.</p></div><div class="consent-actions"><button class="button button-ghost" type="button" data-analytics-choice="denied">Decline</button><button class="button button-primary" type="button" data-analytics-choice="granted">Allow analytics</button></div></div>
+</body>
+</html>

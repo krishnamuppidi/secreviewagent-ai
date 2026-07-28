@@ -1,0 +1,27 @@
+# Search and answer-engine crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://krishnamuppidi.github.io/secreviewagent-ai/sitemap.xml
+Sitemap: https://krishnamuppidi.github.io/secreviewagent-ai/sitemap.txt

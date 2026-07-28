@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070b18" />
+  <title>AI Code Review vs Static Analysis for Infrastructure-as-Code</title>
+  <meta name="description" content="Compare AI-assisted contextual review with static IaC scanners and learn why layered security review produces stronger, more auditable results." />
+  <meta name="keywords" content="AI code review vs static analysis, IaC scanner comparison, AI DevSecOps security, static analysis Terraform" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-vs-static-analysis/" />
+  <link rel="alternate" type="text/markdown" href="index.md" />
+  <meta property="og:title" content="AI Code Review vs Static Analysis for Infrastructure-as-Code" />
+  <meta property="og:description" content="Compare AI-assisted contextual review with static IaC scanners and learn why layered security review produces stronger, more auditable results." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-vs-static-analysis/" />
+  <meta property="og:site_name" content="SecReviewAgent" />
+  <meta property="og:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <meta property="og:image:alt" content="SecReviewAgent context-aware Infrastructure-as-Code security review" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Code Review vs Static Analysis for Infrastructure-as-Code" />
+  <meta name="twitter:description" content="Compare AI-assisted contextual review with static IaC scanners and learn why layered security review produces stronger, more auditable results." />
+  <meta name="twitter:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"AI Code Review vs Static Analysis for Infrastructure-as-Code","description":"Compare AI-assisted contextual review with static IaC scanners and learn why layered security review produces stronger, more auditable results.","url":"https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-vs-static-analysis/","dateModified":"2026-07-28","author":{"@type":"Person","name":"Naga Krishna Reddy Muppidi","url":"https://scholar.google.com/citations?user=IKcQzPkAAAAJ&hl=en"},"publisher":{"@type":"Person","name":"Naga Krishna Reddy Muppidi"},"isPartOf":{"@type":"WebSite","name":"SecReviewAgent","url":"https://krishnamuppidi.github.io/secreviewagent-ai/"}}</script>
+  <script defer src="../analytics.js"></script>
+  <script defer src="../app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="../" aria-label="SecReviewAgent home"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <div class="nav-links" id="nav-links"><a href="../#how-it-works">How it works</a><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Docs</a></div>
+        <a class="button button-small nav-cta" href="https://github.com/krishnamuppidi/secreviewagent-ai">View GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  <main id="main">
+    <header class="page-hero"><div class="page-grid"></div><div class="container narrow reveal"><span class="eyebrow">Comparison guide</span><h1>Static rules and contextual reasoning solve different parts of IaC security.</h1><p>The strongest workflow keeps deterministic scanners as controls and adds context-aware reasoning where risk crosses resource and file boundaries.</p><div class="breadcrumb"><a href="../">SecReviewAgent</a><span>/</span><span>Comparison guide</span></div></div></header>
+    <article class="article container narrow reveal">
+        <section class="content-section"><h2>What static analysis does well</h2>
+        <p>Static IaC scanners are fast, repeatable, and easy to enforce. They excel at known patterns: public storage, missing encryption, unrestricted ingress, privileged containers, weak logging, and violations of organization policy. Their findings can map directly to a rule identifier and a source line.</p></section>
+        <section class="content-section"><h2>What an AI review layer can add</h2>
+        <p>A model can explain provider semantics, summarize the architecture, connect resources, and propose a remediation that accounts for intent. Persistent repository context can expose a privilege or data path that is not represented in a single rule. The cost is uncertainty: model output must be validated, calibrated, and prevented from taking autonomous action.</p>
+        <div class="comparison-grid"><article><h3>Static scanner</h3><ul><li>Deterministic rules</li><li>Low latency</li><li>Clear policy IDs</li><li>Limited architectural inference</li></ul></article><article><h3>SecReviewAgent layer</h3><ul><li>Cross-resource context</li><li>Repository-specific explanation</li><li>Structured remediation</li><li>Requires human validation</li></ul></article></div></section>
+        <section class="content-section"><h2>Recommended pipeline</h2>
+        <p>Run formatting, validation, and deterministic scanners first. Feed their results plus a bounded architecture view into the contextual reviewer. Deduplicate overlapping findings, preserve the evidence source, and route critical or uncertain findings to an experienced reviewer. Do not hide scanner failures inside a model-generated summary.</p></section>
+        <section class="content-section"><h2>Evaluation questions</h2>
+        <p>Does the AI layer find context-dependent issues the scanners miss? Does it create more false positives? Does it reduce median human review time? Are recommendations accepted? How much repository content crosses the model boundary? These measures matter more than the raw number of comments.</p></section>
+        </article>
+    <section class="related"><div class="container narrow"><span class="eyebrow">Continue exploring</span><h2>Put context-aware review into practice.</h2><div class="related-links"><a href="../examples/">Worked examples <span>→</span></a><a href="../docs/">Documentation <span>→</span></a><a href="../research/">Research and evidence <span>→</span></a></div></div></section>
+  </main>
+  
+    <footer class="footer"><div class="container footer-grid"><div><a class="brand" href="../"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a><p>Context-aware security review for Infrastructure-as-Code.</p></div><div><b>Explore</b><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Documentation</a></div><div><b>Guides</b><a href="../terraform-security-review/">Terraform review</a><a href="../kubernetes-security-review/">Kubernetes review</a><a href="../iac-security-review-checklist/">IaC checklist</a><a href="../about/">About</a></div><div><b>Project</b><a href="https://github.com/krishnamuppidi/secreviewagent-ai">Source code</a><a href="../assets/secreviewagent-icufn-2026-paper.pdf">Research paper</a><button id="analytics-preferences" class="footer-button" type="button">Analytics preferences</button></div></div><div class="container footer-bottom"><span>© <span id="year">2026</span> Naga Krishna Reddy Muppidi. MIT-licensed reference implementation.</span><span>Independent research · Human review required</span></div></footer>
+    <div id="analytics-consent" class="consent" role="dialog" aria-labelledby="analytics-consent-title" hidden><div><b id="analytics-consent-title">Privacy-respecting analytics</b><p>Allow anonymous GA4 usage analytics to improve the site. Advertising, Google Signals, personalization, names, emails, form contents, query strings, and full outbound URLs are not sent.</p></div><div class="consent-actions"><button class="button button-ghost" type="button" data-analytics-choice="denied">Decline</button><button class="button button-primary" type="button" data-analytics-choice="granted">Allow analytics</button></div></div>
+</body>
+</html>

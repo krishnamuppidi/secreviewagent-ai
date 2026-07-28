@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070b18" />
+  <title>SecReviewAgent Research, Evaluation Method, and Claim Boundaries</title>
+  <meta name="description" content="Read the SecReviewAgent research summary, ICUFN presentation status, evaluation design, reported results, limitations, and reproducibility boundaries." />
+  <meta name="keywords" content="SecReviewAgent research paper, persistent memory IaC research, LLM security review evaluation, ICUFN 2026 SecReviewAgent" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://krishnamuppidi.github.io/secreviewagent-ai/research/" />
+  <link rel="alternate" type="text/markdown" href="index.md" />
+  <meta property="og:title" content="SecReviewAgent Research, Evaluation Method, and Claim Boundaries" />
+  <meta property="og:description" content="Read the SecReviewAgent research summary, ICUFN presentation status, evaluation design, reported results, limitations, and reproducibility boundaries." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://krishnamuppidi.github.io/secreviewagent-ai/research/" />
+  <meta property="og:site_name" content="SecReviewAgent" />
+  <meta property="og:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <meta property="og:image:alt" content="SecReviewAgent context-aware Infrastructure-as-Code security review" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SecReviewAgent Research, Evaluation Method, and Claim Boundaries" />
+  <meta name="twitter:description" content="Read the SecReviewAgent research summary, ICUFN presentation status, evaluation design, reported results, limitations, and reproducibility boundaries." />
+  <meta name="twitter:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"SecReviewAgent Research, Evaluation Method, and Claim Boundaries","description":"Read the SecReviewAgent research summary, ICUFN presentation status, evaluation design, reported results, limitations, and reproducibility boundaries.","url":"https://krishnamuppidi.github.io/secreviewagent-ai/research/","dateModified":"2026-07-28","author":{"@type":"Person","name":"Naga Krishna Reddy Muppidi","url":"https://scholar.google.com/citations?user=IKcQzPkAAAAJ&hl=en"},"publisher":{"@type":"Person","name":"Naga Krishna Reddy Muppidi"},"isPartOf":{"@type":"WebSite","name":"SecReviewAgent","url":"https://krishnamuppidi.github.io/secreviewagent-ai/"}}</script>
+  <script defer src="../analytics.js"></script>
+  <script defer src="../app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="../" aria-label="SecReviewAgent home"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <div class="nav-links" id="nav-links"><a href="../#how-it-works">How it works</a><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Docs</a></div>
+        <a class="button button-small nav-cta" href="https://github.com/krishnamuppidi/secreviewagent-ai">View GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  <main id="main">
+    <header class="page-hero"><div class="page-grid"></div><div class="container narrow reveal"><span class="eyebrow">Research</span><h1>Persistent architecture memory, evaluated as a review mechanism.</h1><p>The SecReviewAgent paper was accepted and presented at ICUFN 2026. This page separates paper-reported results from guarantees about the public prototype.</p><div class="breadcrumb"><a href="../">SecReviewAgent</a><span>/</span><span>Research</span></div></div></header>
+    <article class="article container narrow reveal">
+        <section class="content-section"><h2>Research contribution</h2>
+        <p>The paper, <em>SecReviewAgent: Context-Aware Security Review of Infrastructure-as-Code Using Persistent Architecture Memory</em>, presents a repository memory design, cold and warm review algorithms, Terraform and Kubernetes parsing, structured findings, and an empirical comparison focused on context-dependent security issues.</p>
+        <p>The work was accepted and presented at the 2026 International Conference on Ubiquitous and Future Networks (ICUFN). The conference manuscript names Naga Krishna Reddy Muppidi, Veera Ravindra Divi, Sneha Gullapalli, and Rambabu Pasumarthy as authors.</p></section>
+        <section class="content-section"><h2>Results reported in the paper</h2>
+        <div class="metric-grid"><div><strong>847</strong><span>IaC pull requests</span></div><div><strong>23</strong><span>repositories</span></div><div><strong>0.89</strong><span>precision</span></div><div><strong>0.83</strong><span>F1</span></div><div><strong>2.4×</strong><span>context-dependent recall vs no-context baseline</span></div><div><strong>73%</strong><span>warm-review latency reduction</span></div></div>
+        <p class="fine-print">These are manuscript-reported research results under the paper’s dataset, labeling process, baselines, and implementation. They are not universal production guarantees.</p></section>
+        <section class="content-section"><h2>Evaluation design</h2>
+        <p>The manuscript describes comparisons with deterministic scanners and a no-context model, dual security labeling with adjudication, separate context-dependent recall analysis, cold and warm latency measurement, and a controlled practitioner study. The design is intended to test the specific mechanism: whether persistent repository context improves review of relational infrastructure risks.</p></section>
+        <section class="content-section"><h2>Limitations and reproducibility</h2>
+        <p>Private repositories cannot be redistributed. Aggregate statistics and methodology do not substitute for a public benchmark corpus. Model behavior, prompt design, parser quality, and baseline configuration can affect results. Architecture memory can become stale. Cross-repository systems are only partially modeled. Human review remains necessary.</p>
+        <p><a class="button button-primary" href="../assets/secreviewagent-icufn-2026-paper.pdf" data-track="paper_download">Read the conference manuscript</a></p></section>
+        </article>
+    <section class="related"><div class="container narrow"><span class="eyebrow">Continue exploring</span><h2>Put context-aware review into practice.</h2><div class="related-links"><a href="../examples/">Worked examples <span>→</span></a><a href="../docs/">Documentation <span>→</span></a><a href="../research/">Research and evidence <span>→</span></a></div></div></section>
+  </main>
+  
+    <footer class="footer"><div class="container footer-grid"><div><a class="brand" href="../"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a><p>Context-aware security review for Infrastructure-as-Code.</p></div><div><b>Explore</b><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Documentation</a></div><div><b>Guides</b><a href="../terraform-security-review/">Terraform review</a><a href="../kubernetes-security-review/">Kubernetes review</a><a href="../iac-security-review-checklist/">IaC checklist</a><a href="../about/">About</a></div><div><b>Project</b><a href="https://github.com/krishnamuppidi/secreviewagent-ai">Source code</a><a href="../assets/secreviewagent-icufn-2026-paper.pdf">Research paper</a><button id="analytics-preferences" class="footer-button" type="button">Analytics preferences</button></div></div><div class="container footer-bottom"><span>© <span id="year">2026</span> Naga Krishna Reddy Muppidi. MIT-licensed reference implementation.</span><span>Independent research · Human review required</span></div></footer>
+    <div id="analytics-consent" class="consent" role="dialog" aria-labelledby="analytics-consent-title" hidden><div><b id="analytics-consent-title">Privacy-respecting analytics</b><p>Allow anonymous GA4 usage analytics to improve the site. Advertising, Google Signals, personalization, names, emails, form contents, query strings, and full outbound URLs are not sent.</p></div><div class="consent-actions"><button class="button button-ghost" type="button" data-analytics-choice="denied">Decline</button><button class="button button-primary" type="button" data-analytics-choice="granted">Allow analytics</button></div></div>
+</body>
+</html>
