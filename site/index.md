@@ -14,9 +14,13 @@ SecReviewAgent is an open-source, context-aware security review system for Terra
 - AWS serverless webhook reference deployment.
 - Human approval remains required.
 
-## Research boundary
+## Research status
 
-The SecReviewAgent paper was accepted and presented at ICUFN 2026. Its reported evaluation results are research results under the manuscript's dataset and method, not universal production guarantees.
+The SecReviewAgent paper was accepted and presented at ICUFN 2026. The website describes the design and public implementation without reproducing paper results as product claims.
+
+## Token optimization
+
+SecReviewAgent measures candidate context, selects approved security facts, reuses versioned architecture memory, uses provider prompt caching or optional compression where appropriate, and verifies that required findings and review quality are preserved.
 
 ## Guides
 
@@ -28,6 +32,7 @@ The SecReviewAgent paper was accepted and presented at ICUFN 2026. Its reported 
 - [AI-Assisted IAM Policy Analysis with Repository Context](https://krishnamuppidi.github.io/secreviewagent-ai/iam-policy-analysis/index.md)
 - [What Is Context-Aware Infrastructure-as-Code Security Review?](https://krishnamuppidi.github.io/secreviewagent-ai/context-aware-iac-security/index.md)
 - [Persistent Architecture Memory for DevSecOps and AI Code Review](https://krishnamuppidi.github.io/secreviewagent-ai/architecture-memory-devsecops/index.md)
+- [AI Code Review Token Optimization for Terraform and Kubernetes](https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-token-optimization/index.md)
 - [AI Code Review vs Static Analysis for Infrastructure-as-Code](https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-vs-static-analysis/index.md)
 - [Checkov vs SecReviewAgent: Rules and Context for IaC Security](https://krishnamuppidi.github.io/secreviewagent-ai/checkov-vs-secreviewagent/index.md)
 - [tfsec vs SecReviewAgent for Terraform Security Review](https://krishnamuppidi.github.io/secreviewagent-ai/tfsec-vs-secreviewagent/index.md)

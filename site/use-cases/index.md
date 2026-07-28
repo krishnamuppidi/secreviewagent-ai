@@ -37,6 +37,12 @@ Deploy an API Gateway and Lambda review path with repository memory stored in S3
 - Pull-request changes that alter an existing cross-resource privilege path.
 - Repeated reviews where repository context can be loaded instead of rebuilt.
 
+## Token-optimized review
+
+        Repeated IaC review should not resend an entire repository on every pull request. SecReviewAgent can measure the candidate prompt, select the security-relevant resource and architecture facts, reuse versioned repository memory, use provider prompt caching where available, and verify that a smaller context still preserves required findings. Token reduction counts only when review quality passes the defined gate.
+
+        [See the token-optimization workflow →](../ai-code-review-token-optimization/)
+
 ## Roadmap integrations, clearly labeled
 
         CloudFormation, Pulumi, Helm, Kustomize, GitHub Actions, GitLab CI, Jenkins, OPA/Rego, Dockerfiles, and SBOM-aware supply-chain review are useful expansion targets. They are not presented as current parser support. The architecture can accommodate them through additional parsers and evidence adapters, but each integration needs tests, fixtures, and an evaluation before it becomes a supported claim.

@@ -88,7 +88,7 @@ def parse(path: Path) -> MetadataParser:
 def test_every_public_page_has_unique_metadata_and_structured_data() -> None:
     titles: set[str] = set()
     descriptions: set[str] = set()
-    assert len(public_pages()) >= 12
+    assert len(public_pages()) >= 17
     for relative, canonical in public_pages().items():
         parser = parse(SITE / relative)
         assert parser.title and parser.title not in titles
@@ -160,11 +160,20 @@ def test_claim_boundaries_and_supported_scope_are_explicit() -> None:
     home = (SITE / "index.html").read_text()
     use_cases = (SITE / "use-cases/index.html").read_text()
     research = (SITE / "research/index.html").read_text()
-    assert "not universal production guarantees" in home
+    token_optimization = (SITE / "ai-code-review-token-optimization/index.html").read_text()
+    assert "Savings count only when required facts and review quality are preserved" in home
     assert "Roadmap integrations, clearly labeled" in use_cases
     assert "not presented as current parser support" in use_cases
     assert "accepted and presented at ICUFN 2026" in research
     assert "Human review remains necessary" in research
+    assert "No universal percentage" in token_optimization
+    assert "Measure → Select → Reuse → Cache → Verify" in token_optimization
+
+
+def test_public_site_does_not_republish_paper_result_metrics() -> None:
+    public_html = "\n".join(path.read_text() for path in SITE.rglob("index.html"))
+    for result_text in ("847", "2.4×", "73%", "0.89", "0.83"):
+        assert result_text not in public_html
 
 
 def test_public_assets_exist() -> None:

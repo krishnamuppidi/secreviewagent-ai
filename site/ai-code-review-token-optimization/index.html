@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#070b18" />
+  <title>AI Code Review Token Optimization for Terraform and Kubernetes</title>
+  <meta name="description" content="Reduce repeated LLM input tokens in IaC security review with measured context selection, reusable architecture memory, prompt caching, and quality gates." />
+  <meta name="keywords" content="AI code review token optimization, reduce LLM tokens IaC review, Terraform AI token cost, prompt caching code review" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-token-optimization/" />
+  <link rel="alternate" type="text/markdown" href="index.md" />
+  <meta property="og:title" content="AI Code Review Token Optimization for Terraform and Kubernetes" />
+  <meta property="og:description" content="Reduce repeated LLM input tokens in IaC security review with measured context selection, reusable architecture memory, prompt caching, and quality gates." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-token-optimization/" />
+  <meta property="og:site_name" content="SecReviewAgent" />
+  <meta property="og:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <meta property="og:image:alt" content="SecReviewAgent context-aware Infrastructure-as-Code security review" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI Code Review Token Optimization for Terraform and Kubernetes" />
+  <meta name="twitter:description" content="Reduce repeated LLM input tokens in IaC security review with measured context selection, reusable architecture memory, prompt caching, and quality gates." />
+  <meta name="twitter:image" content="https://krishnamuppidi.github.io/secreviewagent-ai/assets/secreviewagent-social-preview.png" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"AI Code Review Token Optimization for Terraform and Kubernetes","description":"Reduce repeated LLM input tokens in IaC security review with measured context selection, reusable architecture memory, prompt caching, and quality gates.","url":"https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-token-optimization/","dateModified":"2026-07-28","author":{"@type":"Person","name":"Naga Krishna Reddy Muppidi","url":"https://scholar.google.com/citations?user=IKcQzPkAAAAJ&hl=en"},"publisher":{"@type":"Person","name":"Naga Krishna Reddy Muppidi"},"isPartOf":{"@type":"WebSite","name":"SecReviewAgent","url":"https://krishnamuppidi.github.io/secreviewagent-ai/"}}</script>
+  <script defer src="../analytics.js"></script>
+  <script defer src="../app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="brand" href="../" aria-label="SecReviewAgent home"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a>
+        <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open navigation"><span></span><span></span><span></span></button>
+        <div class="nav-links" id="nav-links"><a href="../#how-it-works">How it works</a><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Docs</a></div>
+        <a class="button button-small nav-cta" href="https://github.com/krishnamuppidi/secreviewagent-ai">View GitHub <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  <main id="main">
+    <header class="page-hero"><div class="page-grid"></div><div class="container narrow reveal"><span class="eyebrow">Token optimization</span><h1>Reduce repeated review context without removing required security facts.</h1><p>SecReviewAgent makes token optimization measurable: count the full candidate context, assemble the minimum approved review capsule, reuse stable architecture facts, and accept savings only when finding quality holds.</p><div class="breadcrumb"><a href="../">SecReviewAgent</a><span>/</span><span>Token optimization</span></div></div></header>
+    <article class="article container narrow reveal">
+        <section class="content-section"><h2>Why IaC reviews repeat expensive context</h2>
+        <p>A pull request may change only a few Terraform resources or Kubernetes manifests, while the security decision still depends on IAM relationships, network boundaries, ownership, environment, data classification, and existing dependencies. Sending the whole repository provides breadth but repeats many unchanged tokens. Sending only the diff is cheaper but can omit the facts that make a risk visible.</p>
+        <p>The useful middle path is a task-scoped context capsule: the changed resources plus only the approved architecture facts required to review them.</p></section>
+        <section class="content-section"><h2>Measure → Select → Reuse → Cache → Verify</h2>
+        <div class="layer-stack"><div><b>1. Measure</b><span>Count the full candidate prompt with a model-aware tokenizer.</span></div><div><b>2. Select</b><span>Choose relevant IAM, network, policy, ownership, environment, and dependency facts.</span></div><div><b>3. Reuse</b><span>Load versioned architecture memory instead of rebuilding repository understanding.</span></div><div><b>4. Cache or compress</b><span>Use provider prompt caching and optional compression only where they preserve meaning.</span></div><div><b>5. Verify</b><span>Compare required-fact coverage, findings, false positives, reviewer acceptance, latency, and provider usage.</span></div></div></section>
+        <section class="content-section"><h2>Stable context and changing context</h2>
+        <p>Separate repository knowledge into stable and dynamic layers. Resource relationships, ownership, architecture summaries, and approved policy explanations may remain stable across many reviews. The pull-request diff, current scanner findings, environment changes, and expiring exceptions are dynamic. Keeping the stable prefix consistent can improve provider cacheability while the dynamic suffix stays specific to the task.</p></section>
+        <section class="content-section"><h2>Security controls are part of optimization</h2>
+        <p>Fewer tokens do not automatically mean safer prompts. Selection must occur after workload authentication and policy evaluation. The capsule should carry provenance, source hashes, freshness, policy version, and an audit identifier. Unrelated topology and secret-adjacent material should remain outside the model boundary.</p>
+        <p>SecReviewAgent uses <a href="https://krishnamuppidi.github.io/secure-context-cache/">Secure Context Cache</a> as the foundational framework for measurement, selection, reusable context, provider caching, optional compression, routing, and quality verification.</p></section>
+        <section class="content-section"><h2>How to prove savings responsibly</h2>
+        <p>Replay the same labeled pull requests through changed-files-only, full approved context, and optimized capsule paths. Use provider-reported input usage where possible. Record finding precision and recall, required-fact coverage, prohibited-context release, reviewer acceptance, latency, and cost. Report a reduction only for reviews that meet the agreed quality and security thresholds.</p>
+        <div class="notice"><b>No universal percentage</b><p>Token savings depend on repository size, change shape, model tokenizer, provider caching, policy scope, and the quality gate. This site does not present one fixed savings percentage.</p></div></section>
+        </article>
+    <section class="related"><div class="container narrow"><span class="eyebrow">Continue exploring</span><h2>Put context-aware review into practice.</h2><div class="related-links"><a href="../examples/">Worked examples <span>→</span></a><a href="../docs/">Documentation <span>→</span></a><a href="../research/">Research and evidence <span>→</span></a></div></div></section>
+  </main>
+  
+    <footer class="footer"><div class="container footer-grid"><div><a class="brand" href="../"><span class="brand-mark">S<span>R</span></span><span>SecReviewAgent</span></a><p>Context-aware security review for Infrastructure-as-Code.</p></div><div><b>Explore</b><a href="../use-cases/">Use cases</a><a href="../examples/">Examples</a><a href="../research/">Research</a><a href="../docs/">Documentation</a></div><div><b>Guides</b><a href="../terraform-security-review/">Terraform review</a><a href="../kubernetes-security-review/">Kubernetes review</a><a href="../iac-security-review-checklist/">IaC checklist</a><a href="../about/">About</a></div><div><b>Project</b><a href="https://github.com/krishnamuppidi/secreviewagent-ai">Source code</a><a href="../assets/secreviewagent-icufn-2026-paper.pdf">Research paper</a><button id="analytics-preferences" class="footer-button" type="button">Analytics preferences</button></div></div><div class="container footer-bottom"><span>© <span id="year">2026</span> Naga Krishna Reddy Muppidi. MIT-licensed reference implementation.</span><span>Independent research · Human review required</span></div></footer>
+    <div id="analytics-consent" class="consent" role="dialog" aria-labelledby="analytics-consent-title" hidden><div><b id="analytics-consent-title">Privacy-respecting analytics</b><p>Allow anonymous GA4 usage analytics to improve the site. Advertising, Google Signals, personalization, names, emails, form contents, query strings, and full outbound URLs are not sent.</p></div><div class="consent-actions"><button class="button button-ghost" type="button" data-analytics-choice="denied">Decline</button><button class="button button-primary" type="button" data-analytics-choice="granted">Allow analytics</button></div></div>
+</body>
+</html>

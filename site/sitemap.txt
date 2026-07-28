@@ -7,6 +7,7 @@ https://krishnamuppidi.github.io/secreviewagent-ai/kubernetes-security-review/
 https://krishnamuppidi.github.io/secreviewagent-ai/iam-policy-analysis/
 https://krishnamuppidi.github.io/secreviewagent-ai/context-aware-iac-security/
 https://krishnamuppidi.github.io/secreviewagent-ai/architecture-memory-devsecops/
+https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-token-optimization/
 https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-vs-static-analysis/
 https://krishnamuppidi.github.io/secreviewagent-ai/checkov-vs-secreviewagent/
 https://krishnamuppidi.github.io/secreviewagent-ai/tfsec-vs-secreviewagent/

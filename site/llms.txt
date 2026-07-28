@@ -4,7 +4,7 @@
 
 Canonical terminology: SecReviewAgent is the flagship IaC security review application. Secure Context Cache is the broader context-selection and authorization framework. Agent Context Gateway is the runtime context-release boundary.
 
-Claim boundary: the public implementation supports Terraform and Kubernetes parsing, structured review, PR diffs, a webhook, and an AWS deployment template. CloudFormation, Pulumi, Helm, Kustomize, CI pipeline, OPA/Rego, Dockerfile, and SBOM adapters are roadmap items unless a guide explicitly describes a render-and-review integration. Manuscript-reported metrics are research results, not universal production guarantees.
+Claim boundary: the public implementation supports Terraform and Kubernetes parsing, structured review, PR diffs, a webhook, and an AWS deployment template. CloudFormation, Pulumi, Helm, Kustomize, CI pipeline, OPA/Rego, Dockerfile, and SBOM adapters are roadmap items unless a guide explicitly describes a render-and-review integration. Token savings vary by workload and count only when quality and security gates pass. The website does not reproduce paper results as product claims.
 
 ## Start here
 
@@ -25,6 +25,7 @@ Claim boundary: the public implementation supports Terraform and Kubernetes pars
 - [AI-Assisted IAM Policy Analysis with Repository Context](https://krishnamuppidi.github.io/secreviewagent-ai/iam-policy-analysis/index.md)
 - [What Is Context-Aware Infrastructure-as-Code Security Review?](https://krishnamuppidi.github.io/secreviewagent-ai/context-aware-iac-security/index.md)
 - [Persistent Architecture Memory for DevSecOps and AI Code Review](https://krishnamuppidi.github.io/secreviewagent-ai/architecture-memory-devsecops/index.md)
+- [AI Code Review Token Optimization for Terraform and Kubernetes](https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-token-optimization/index.md)
 - [AI Code Review vs Static Analysis for Infrastructure-as-Code](https://krishnamuppidi.github.io/secreviewagent-ai/ai-code-review-vs-static-analysis/index.md)
 - [Checkov vs SecReviewAgent: Rules and Context for IaC Security](https://krishnamuppidi.github.io/secreviewagent-ai/checkov-vs-secreviewagent/index.md)
 - [tfsec vs SecReviewAgent for Terraform Security Review](https://krishnamuppidi.github.io/secreviewagent-ai/tfsec-vs-secreviewagent/index.md)

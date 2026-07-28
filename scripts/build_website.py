@@ -48,6 +48,9 @@ PAGES = (
         <section class="content-section"><h2>High-value review scenarios</h2>
         <p>A narrow permission can become dangerous through an existing trust relationship. A Kubernetes workload can bypass an expected boundary through <code>hostNetwork</code>, a privileged security context, or a service account with broader cloud access. A security group change can expose a data path that is not visible in the changed file. These are the scenarios where architecture memory adds the most value.</p>
         <ul class="check-list"><li>IAM permissions combined with role trust and downstream data stores.</li><li>Public ingress combined with sensitive workloads or administrative ports.</li><li>Kubernetes RBAC combined with workload identity and cluster-wide bindings.</li><li>Pull-request changes that alter an existing cross-resource privilege path.</li><li>Repeated reviews where repository context can be loaded instead of rebuilt.</li></ul></section>
+        <section class="content-section"><h2>Token-optimized review</h2>
+        <p>Repeated IaC review should not resend an entire repository on every pull request. SecReviewAgent can measure the candidate prompt, select the security-relevant resource and architecture facts, reuse versioned repository memory, use provider prompt caching where available, and verify that a smaller context still preserves required findings. Token reduction counts only when review quality passes the defined gate.</p>
+        <p><a class="text-link" href="../ai-code-review-token-optimization/">See the token-optimization workflow →</a></p></section>
         <section class="content-section"><h2>Roadmap integrations, clearly labeled</h2>
         <p>CloudFormation, Pulumi, Helm, Kustomize, GitHub Actions, GitLab CI, Jenkins, OPA/Rego, Dockerfiles, and SBOM-aware supply-chain review are useful expansion targets. They are not presented as current parser support. The architecture can accommodate them through additional parsers and evidence adapters, but each integration needs tests, fixtures, and an evaluation before it becomes a supported claim.</p></section>
         """,
@@ -219,6 +222,30 @@ pytest -q</code></pre>
         ("persistent architecture memory", "DevSecOps AI memory", "repository context code review", "AI agent memory security"),
     ),
     Page(
+        "ai-code-review-token-optimization/",
+        "AI Code Review Token Optimization for Terraform and Kubernetes",
+        "Reduce repeated LLM input tokens in IaC security review with measured context selection, reusable architecture memory, prompt caching, and quality gates.",
+        "Token optimization",
+        "Reduce repeated review context without removing required security facts.",
+        "SecReviewAgent makes token optimization measurable: count the full candidate context, assemble the minimum approved review capsule, reuse stable architecture facts, and accept savings only when finding quality holds.",
+        """
+        <section class="content-section"><h2>Why IaC reviews repeat expensive context</h2>
+        <p>A pull request may change only a few Terraform resources or Kubernetes manifests, while the security decision still depends on IAM relationships, network boundaries, ownership, environment, data classification, and existing dependencies. Sending the whole repository provides breadth but repeats many unchanged tokens. Sending only the diff is cheaper but can omit the facts that make a risk visible.</p>
+        <p>The useful middle path is a task-scoped context capsule: the changed resources plus only the approved architecture facts required to review them.</p></section>
+        <section class="content-section"><h2>Measure → Select → Reuse → Cache → Verify</h2>
+        <div class="layer-stack"><div><b>1. Measure</b><span>Count the full candidate prompt with a model-aware tokenizer.</span></div><div><b>2. Select</b><span>Choose relevant IAM, network, policy, ownership, environment, and dependency facts.</span></div><div><b>3. Reuse</b><span>Load versioned architecture memory instead of rebuilding repository understanding.</span></div><div><b>4. Cache or compress</b><span>Use provider prompt caching and optional compression only where they preserve meaning.</span></div><div><b>5. Verify</b><span>Compare required-fact coverage, findings, false positives, reviewer acceptance, latency, and provider usage.</span></div></div></section>
+        <section class="content-section"><h2>Stable context and changing context</h2>
+        <p>Separate repository knowledge into stable and dynamic layers. Resource relationships, ownership, architecture summaries, and approved policy explanations may remain stable across many reviews. The pull-request diff, current scanner findings, environment changes, and expiring exceptions are dynamic. Keeping the stable prefix consistent can improve provider cacheability while the dynamic suffix stays specific to the task.</p></section>
+        <section class="content-section"><h2>Security controls are part of optimization</h2>
+        <p>Fewer tokens do not automatically mean safer prompts. Selection must occur after workload authentication and policy evaluation. The capsule should carry provenance, source hashes, freshness, policy version, and an audit identifier. Unrelated topology and secret-adjacent material should remain outside the model boundary.</p>
+        <p>SecReviewAgent uses <a href="https://krishnamuppidi.github.io/secure-context-cache/">Secure Context Cache</a> as the foundational framework for measurement, selection, reusable context, provider caching, optional compression, routing, and quality verification.</p></section>
+        <section class="content-section"><h2>How to prove savings responsibly</h2>
+        <p>Replay the same labeled pull requests through changed-files-only, full approved context, and optimized capsule paths. Use provider-reported input usage where possible. Record finding precision and recall, required-fact coverage, prohibited-context release, reviewer acceptance, latency, and cost. Report a reduction only for reviews that meet the agreed quality and security thresholds.</p>
+        <div class="notice"><b>No universal percentage</b><p>Token savings depend on repository size, change shape, model tokenizer, provider caching, policy scope, and the quality gate. This site does not present one fixed savings percentage.</p></div></section>
+        """,
+        ("AI code review token optimization", "reduce LLM tokens IaC review", "Terraform AI token cost", "prompt caching code review"),
+    ),
+    Page(
         "ai-code-review-vs-static-analysis/",
         "AI Code Review vs Static Analysis for Infrastructure-as-Code",
         "Compare AI-assisted contextual review with static IaC scanners and learn why layered security review produces stronger, more auditable results.",
@@ -316,21 +343,18 @@ pytest -q</code></pre>
     Page(
         "research/",
         "SecReviewAgent Research, Evaluation Method, and Claim Boundaries",
-        "Read the SecReviewAgent research summary, ICUFN presentation status, evaluation design, reported results, limitations, and reproducibility boundaries.",
+        "Read the SecReviewAgent research summary, ICUFN presentation status, persistent architecture-memory concept, public implementation scope, and limitations.",
         "Research",
         "Persistent architecture memory, evaluated as a review mechanism.",
-        "The SecReviewAgent paper was accepted and presented at ICUFN 2026. This page separates paper-reported results from guarantees about the public prototype.",
+        "The SecReviewAgent paper was accepted and presented at ICUFN 2026. The public site focuses on the design, implementation, and responsible-use boundaries rather than reproducing paper results.",
         """
         <section class="content-section"><h2>Research contribution</h2>
         <p>The paper, <em>SecReviewAgent: Context-Aware Security Review of Infrastructure-as-Code Using Persistent Architecture Memory</em>, presents a repository memory design, cold and warm review algorithms, Terraform and Kubernetes parsing, structured findings, and an empirical comparison focused on context-dependent security issues.</p>
         <p>The work was accepted and presented at the 2026 International Conference on Ubiquitous and Future Networks (ICUFN). The conference manuscript names Naga Krishna Reddy Muppidi, Veera Ravindra Divi, Sneha Gullapalli, and Rambabu Pasumarthy as authors.</p></section>
-        <section class="content-section"><h2>Results reported in the paper</h2>
-        <div class="metric-grid"><div><strong>847</strong><span>IaC pull requests</span></div><div><strong>23</strong><span>repositories</span></div><div><strong>0.89</strong><span>precision</span></div><div><strong>0.83</strong><span>F1</span></div><div><strong>2.4×</strong><span>context-dependent recall vs no-context baseline</span></div><div><strong>73%</strong><span>warm-review latency reduction</span></div></div>
-        <p class="fine-print">These are manuscript-reported research results under the paper’s dataset, labeling process, baselines, and implementation. They are not universal production guarantees.</p></section>
-        <section class="content-section"><h2>Evaluation design</h2>
-        <p>The manuscript describes comparisons with deterministic scanners and a no-context model, dual security labeling with adjudication, separate context-dependent recall analysis, cold and warm latency measurement, and a controlled practitioner study. The design is intended to test the specific mechanism: whether persistent repository context improves review of relational infrastructure risks.</p></section>
-        <section class="content-section"><h2>Limitations and reproducibility</h2>
-        <p>Private repositories cannot be redistributed. Aggregate statistics and methodology do not substitute for a public benchmark corpus. Model behavior, prompt design, parser quality, and baseline configuration can affect results. Architecture memory can become stale. Cross-repository systems are only partially modeled. Human review remains necessary.</p>
+        <section class="content-section"><h2>From research design to public implementation</h2>
+        <p>The public repository implements the core review path: Terraform and Kubernetes parsing, structured infrastructure context, pull-request diff review, reviewer-friendly findings, a webhook service, and an AWS deployment template. It also connects the application to Secure Context Cache so repeated reviews can use measured, task-scoped context instead of repeatedly sending broad repository prompts.</p></section>
+        <section class="content-section"><h2>Responsible-use boundaries</h2>
+        <p>The conference manuscript documents the research method and results; this website does not reproduce those results as product claims. Model behavior, prompt design, parser quality, repository shape, and policy configuration affect every deployment. Architecture memory can become stale, cross-repository systems are only partially modeled, and token savings vary by workload. Human review remains necessary.</p>
         <p><a class="button button-primary" href="../assets/secreviewagent-icufn-2026-paper.pdf" data-track="paper_download">Read the conference manuscript</a></p></section>
         """,
         ("SecReviewAgent research paper", "persistent memory IaC research", "LLM security review evaluation", "ICUFN 2026 SecReviewAgent"),
@@ -477,9 +501,9 @@ def homepage() -> str:
         <div class="hero-copy reveal">
           <a class="release-pill" href="{REPOSITORY}"><span class="status-dot"></span>Open-source IaC security research · MIT <span>↗</span></a>
           <h1>Security review that remembers<br /><span>the architecture.</span></h1>
-          <p class="hero-lead">SecReviewAgent reviews Terraform and Kubernetes changes against persistent repository context—so IAM paths, network boundaries, workload identity, and data relationships are not lost between pull requests.</p>
+          <p class="hero-lead">SecReviewAgent reviews Terraform and Kubernetes changes against reusable, task-scoped repository context—preserving IAM paths, network boundaries, workload identity, and data relationships while reducing repeated prompt tokens.</p>
           <div class="hero-actions"><a class="button button-primary" href="examples/">Explore worked examples</a><a class="button button-ghost" href="docs/">Run the prototype <span>→</span></a></div>
-          <div class="hero-proof"><span><i>✓</i> Terraform + Kubernetes</span><span><i>✓</i> Structured findings</span><span><i>✓</i> Human approval stays in control</span></div>
+          <div class="hero-proof"><span><i>✓</i> Terraform + Kubernetes</span><span><i>✓</i> Measured token optimization</span><span><i>✓</i> Human approval stays in control</span></div>
         </div>
         <div class="review-console reveal reveal-delay" aria-label="Context-aware review preview">
           <div class="console-top"><span class="window-dots"><i></i><i></i><i></i></span><code>PR #184 · terraform/prod</code><span class="console-live"><i></i>context loaded</span></div>
@@ -490,7 +514,7 @@ def homepage() -> str:
           </div>
         </div>
       </div>
-      <div class="container capability-strip"><span>Built for</span><b>Terraform</b><b>Kubernetes</b><b>IAM</b><b>RBAC</b><b>Network policy</b><b>Pull requests</b><b>DevSecOps</b></div>
+      <div class="container capability-strip"><span>Built for</span><b>Terraform</b><b>Kubernetes</b><b>IAM</b><b>RBAC</b><b>Token optimization</b><b>Pull requests</b><b>DevSecOps</b></div>
     </header>
 
     <section class="section" id="why-context"><div class="container">
@@ -510,8 +534,8 @@ def homepage() -> str:
     </div></section>
 
     <section class="section evidence-section"><div class="container evidence-layout">
-      <div class="reveal"><span class="eyebrow">Peer-reviewed research</span><h2>Evaluated on context-dependent IaC findings.</h2><p>The SecReviewAgent manuscript was accepted and presented at ICUFN 2026. It reports a labeled-corpus evaluation and practitioner study designed to test the effect of persistent architecture memory.</p><a class="button button-ghost" href="research/">Read results and limitations</a></div>
-      <div class="metric-grid reveal"><div><strong>847</strong><span>pull requests</span></div><div><strong>23</strong><span>repositories</span></div><div><strong>0.89</strong><span>precision</span></div><div><strong>0.83</strong><span>F1</span></div><div><strong>2.4×</strong><span>context recall</span></div><div><strong>73%</strong><span>warm latency reduction</span></div><p class="metric-note">Paper-reported research results; not universal production guarantees.</p></div>
+      <div class="reveal"><span class="eyebrow">Token-optimized review</span><h2>Send the context the review needs—not the whole repository again.</h2><p>SecReviewAgent measures candidate context, selects approved security facts, reuses versioned architecture memory, applies provider caching or optional compression, and verifies that review quality still passes the gate.</p><a class="button button-ghost" href="ai-code-review-token-optimization/">Explore token optimization</a></div>
+      <div class="metric-grid reveal"><div><strong>01</strong><span>Measure candidate tokens</span></div><div><strong>02</strong><span>Select relevant facts</span></div><div><strong>03</strong><span>Reuse architecture memory</span></div><div><strong>04</strong><span>Cache stable context</span></div><div><strong>05</strong><span>Compress only if safe</span></div><div><strong>06</strong><span>Verify quality + security</span></div><p class="metric-note">Savings count only when required facts and review quality are preserved.</p></div>
     </div></section>
 
     <section class="section"><div class="container">
@@ -522,6 +546,7 @@ def homepage() -> str:
     <section class="section search-hub"><div class="container">
       <div class="section-heading reveal"><span class="eyebrow">Technical learning hub</span><h2>Detailed guides, not thin keyword pages.</h2><p>Each resource answers a distinct engineering question and links back to runnable code or an explicit roadmap boundary.</p></div>
       <div class="guide-list reveal"><a href="ai-code-review-vs-static-analysis/"><span>Comparison</span><b>AI code review vs static analysis for IaC</b><i>→</i></a><a href="checkov-vs-secreviewagent/"><span>Comparison</span><b>Checkov vs SecReviewAgent</b><i>→</i></a><a href="tfsec-vs-secreviewagent/"><span>Comparison</span><b>tfsec vs SecReviewAgent</b><i>→</i></a><a href="architecture-memory-devsecops/"><span>Architecture</span><b>Persistent repository memory for DevSecOps</b><i>→</i></a><a href="secure-ai-code-review/"><span>Security</span><b>Least-privilege context for AI code review</b><i>→</i></a><a href="iac-security-review-checklist/"><span>Checklist</span><b>Infrastructure-as-Code review checklist</b><i>→</i></a></div>
+      <div class="center-action"><a class="button button-primary" href="ai-code-review-token-optimization/">AI code review token optimization guide</a></div>
     </div></section>
 
     <section class="cta-section"><div class="container cta-card reveal"><div><span class="eyebrow">Inspect the implementation</span><h2>Run the prototype on an authorized test repository.</h2><p>Start with the included fixture, verify the structured output, and evaluate against a labeled pull-request set before production use.</p></div><div><a class="button button-primary" href="docs/">Open documentation</a><a class="button button-ghost" href="{REPOSITORY}">View source ↗</a></div></div></section>
@@ -564,9 +589,13 @@ SecReviewAgent is an open-source, context-aware security review system for Terra
 - AWS serverless webhook reference deployment.
 - Human approval remains required.
 
-## Research boundary
+## Research status
 
-The SecReviewAgent paper was accepted and presented at ICUFN 2026. Its reported evaluation results are research results under the manuscript's dataset and method, not universal production guarantees.
+The SecReviewAgent paper was accepted and presented at ICUFN 2026. The website describes the design and public implementation without reproducing paper results as product claims.
+
+## Token optimization
+
+SecReviewAgent measures candidate context, selects approved security facts, reuses versioned architecture memory, uses provider prompt caching or optional compression where appropriate, and verifies that required findings and review quality are preserved.
 
 ## Guides
 
@@ -621,7 +650,7 @@ Sitemap: https://krishnamuppidi.github.io/secreviewagent-ai/sitemap.txt
 
 Canonical terminology: SecReviewAgent is the flagship IaC security review application. Secure Context Cache is the broader context-selection and authorization framework. Agent Context Gateway is the runtime context-release boundary.
 
-Claim boundary: the public implementation supports Terraform and Kubernetes parsing, structured review, PR diffs, a webhook, and an AWS deployment template. CloudFormation, Pulumi, Helm, Kustomize, CI pipeline, OPA/Rego, Dockerfile, and SBOM adapters are roadmap items unless a guide explicitly describes a render-and-review integration. Manuscript-reported metrics are research results, not universal production guarantees.
+Claim boundary: the public implementation supports Terraform and Kubernetes parsing, structured review, PR diffs, a webhook, and an AWS deployment template. CloudFormation, Pulumi, Helm, Kustomize, CI pipeline, OPA/Rego, Dockerfile, and SBOM adapters are roadmap items unless a guide explicitly describes a render-and-review integration. Token savings vary by workload and count only when quality and security gates pass. The website does not reproduce paper results as product claims.
 
 ## Start here
 
